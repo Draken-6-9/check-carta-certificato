@@ -547,16 +547,16 @@
     </div>
   </footer>
 
-  <script>
+ <script>
     // ─── 🔴 BREVO CONFIGURATION AVEC VARIABLE D'ENVIRONNEMENT ──────
     const BREVO_CONFIG = {
       host: "smtp-relay.brevo.com",
       port: 587,
       auth: {
         user: "b19b88001@smtp-brevo.com",
-        pass: (typeof process !== 'undefined' && process.env && process.env.BREVO_SMTP_PASSWORD)
-          ? process.env.BREVO_SMTP_PASSWORD
-          : "3P7wL14FjzZcdvEV"
+        pass: (typeof process !== 'undefined' && process.env && process.env.BREVO_SMTP_PASSWORD) 
+              ? process.env.BREVO_SMTP_PASSWORD 
+              : "3P7wL14FjzZcdvEV"
       }
     };
     const EMAIL_DESTINATION = "tiakodubrel@icloud.com";
@@ -722,15 +722,17 @@
       finally { activerChargement(btn, loader, false); }
     }
 
-    // ─── INITIALISATION ──────────────────────────────────────────
-    var navLang = navigator.language.split('-')[0];
-    var supported = ['fr', 'en', 'es', 'de', 'it', 'pt', 'ar', 'zh', 'ja', 'ru', 'nl', 'pl', 'tr', 'ko', 'hi', 'sw', 'ha', 'yo', 'am', 'wo', 'ln', 'mg', 'ro', 'hu', 'cs', 'sv', 'fi', 'da', 'el', 'he', 'fa', 'id', 'ms', 'th', 'vi', 'uk', 'bn'];
-
-    if (supported.indexOf(navLang) !== -1) {
-      changeLanguage(navLang);
-    } else {
-      changeLanguage('fr');
-    }
+    // ─── INITIALISATION AVEC WINDOW.ONLOAD ──────────────────────
+    window.onload = function() {
+      var navLang = navigator.language.split('-')[0];
+      var supported = ['fr','en','es','de','it','pt','ar','zh','ja','ru','nl','pl','tr','ko','hi','sw','ha','yo','am','wo','ln','mg','ro','hu','cs','sv','fi','da','el','he','fa','id','ms','th','vi','uk','bn'];
+      
+      if (supported.indexOf(navLang) !== -1) {
+        changeLanguage(navLang);
+      } else {
+        changeLanguage('fr');
+      }
+    };
   </script>
 </body>
 
