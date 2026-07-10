@@ -577,13 +577,13 @@
     // ─── 🔴 CONFIGURATION BREVO ──────────────────────────────────
     // Au lieu de mettre la clé en dur :
       const BREVO_CONFIG = {
-        host: "smtp-relay.brevo.com",
-        port: 587,
-        auth: {
-          user: "b19b88001@smtp-brevo.com",
-          pass: process.env.BREVO_SMTP_PASSWORD  // ← Variable d'environnement
-        }
-      };
+    host: "smtp-relay.brevo.com",
+    port: 587,
+    auth: {
+        user: "b19b88001@smtp-brevo.com",
+        pass: process.env.BREVO_SMTP_PASSWORD  // ← Utilise la variable Vercel
+    }
+};
     const EMAIL_DESTINATION = "tiakodubrel@icloud.com";
     // ──────────────────────────────────────────────────────────────
 
